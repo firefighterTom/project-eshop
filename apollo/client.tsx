@@ -1,6 +1,13 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+
+function getEnv() {
+	if (process.env.NEXT_PUBLIC_HYGRAPH_API)
+		return process.env.NEXT_PUBLIC_HYGRAPH_API;
+
+	throw new Error('Fail env');
+}
 
 export const client = new ApolloClient({
-    uri: 'https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clee5gppg59gz01uj3o2t25l9/master',
-    cache: new InMemoryCache(),
-  });
+	uri: getEnv(),
+	cache: new InMemoryCache(),
+});
