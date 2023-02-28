@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-type QueryDataProduct = {
+type GetProductResult = {
 	product: {
 		price: number;
 		name: string;
@@ -28,7 +28,7 @@ export default function ProductPage() {
 	const router = useRouter();
 	const productName = router.query.products_name;
 
-	const { data } = useQuery<QueryDataProduct>(GET_PRODUCTS_BY_SLUG, {
+	const { data } = useQuery<GetProductResult>(GET_PRODUCTS_BY_SLUG, {
 		variables: { slug: productName },
 	});
 	if (!data) return <h2>Problem with fetching</h2>;
