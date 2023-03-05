@@ -1,37 +1,17 @@
-import { gql, useQuery } from '@apollo/client';
+import { useGetProductBySlugQuery } from 'generated/graphql';
 import { useRouter } from 'next/router';
-type GetProductResult = {
-	product: {
-		price: number;
-		name: string;
-		id: string;
-        images:{
-            id:string,
-            url:string
-        }[]
-	}[];
-};
-const GET_PRODUCTS_BY_SLUG = gql`
-	query GETProductBySlug($slug: String!) {
-		product(where: { slug: $slug }) {
-			name
-			price
-			images {
-				id
-				url
-			}
-			id
-		}
-	}
-`;
+
 export default function ProductPage() {
 	const router = useRouter();
-	const productName = router.query.products_name;
+	const productName = Array.isArray(router.query.products_name)
+		? router.query.products_name[0]
+		: router.query.products_name;
+	if (productName) {
+		const { data } = useGetProductBySlugQuery({
+			variables: { slug: productName },
+		});
+		if (!data) return <h2>Problem with fetching</h2>;
 
-	const { data } = useQuery<GetProductResult>(GET_PRODUCTS_BY_SLUG, {
-		variables: { slug: productName },
-	});
-	if (!data) return <h2>Problem with fetching</h2>;
-
-	return <pre>{JSON.stringify(data, null, 2)}</pre>;
+		return <pre>{JSON.stringify(data, null, 2)}</pre>;
+	}
 }
