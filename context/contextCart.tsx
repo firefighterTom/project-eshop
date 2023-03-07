@@ -1,6 +1,7 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { createContext } from 'react';
+import { useAddNotificationContext } from './contextAddNotification';
 type CartContextType = {
 	items: { name: string }[];
 	addToCart: (value: string) => void;
@@ -9,8 +10,14 @@ const schemaLocalStorage = yup.array().max(3, 'Too much items');
 type itemsCartType = {
 	name: string;
 }[];
+
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
+
+
+	const addNotificationContext=useAddNotificationContext();
+	
+
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
 		const dataLocalStorage = window.localStorage.getItem('cart');
@@ -19,7 +26,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 			setItems(JSON.parse(dataLocalStorage));
 			// schemaLocalStorage.isValid(JSON.parse(dataLocalStorage)).then((res) => {
 			// 	if (res) {
-					
+
 			// 	}
 			// });
 		}
@@ -31,6 +38,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 	const addToCart = (name: string) => {
 		if (!items.find((product) => product.name === name))
 			setItems((prev) => [...prev, { name }]);
+			addNotificationContext?.setIsOpen(true)
 	};
 
 	return (
