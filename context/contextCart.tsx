@@ -1,36 +1,44 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
-import * as yup from 'yup';
 import { createContext } from 'react';
+import { validationLocalStorage } from './utilsCartContext';
+
 type CartContextType = {
 	items: { name: string }[];
-	addToCart: (value: string) => void;
+	addToCart: (value: addedProduct) => void;
 };
-const schemaLocalStorage = yup.array().max(3, 'Too much items');
 type itemsCartType = {
 	name: string;
+	id: string;
+	amount: number;
 }[];
+type addedProduct = {
+	name: string;
+	id: string;
+};
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
-		const dataLocalStorage = window.localStorage.getItem('cart');
-
-		if (dataLocalStorage !== null && dataLocalStorage !== 'undefined') {
-			setItems(JSON.parse(dataLocalStorage));
-			// schemaLocalStorage.isValid(JSON.parse(dataLocalStorage)).then((res) => {
-			// 	if (res) {
-					
-			// 	}
-			// });
-		}
+		validationLocalStorage(setItems);
 	}, []);
 	useEffect(() => {
-		if (items.length > 0)
+		if (items.length)
 			window.localStorage.setItem('cart', JSON.stringify(items));
 	}, [items]);
-	const addToCart = (name: string) => {
-		if (!items.find((product) => product.name === name))
-			setItems((prev) => [...prev, { name }]);
+	const addToCart = (element: addedProduct) => {
+		const exist = items.find((product) => product.name === element.name);
+		if (!exist) {
+			setItems((prev) => [
+				...prev,
+				{ name: element.name, id: element.id, amount: 1 },
+			]);
+		}
+		if (exist)
+			setItems(
+				items.map((el) =>
+					el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
+				)
+			);
 	};
 
 	return (
@@ -39,6 +47,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 		</CartContext.Provider>
 	);
 }
+
 export const useCartContext = () => {
 	const cartContext = useContext(CartContext);
 	if (cartContext === undefined) {
@@ -46,3 +55,4 @@ export const useCartContext = () => {
 	}
 	return cartContext;
 };
+
