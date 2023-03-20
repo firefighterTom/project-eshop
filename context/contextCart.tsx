@@ -13,10 +13,7 @@ type itemsCartType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
-
-
-	const addNotificationContext=useAddNotificationContext();
-	
+	const addNotificationContext = useAddNotificationContext();
 
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
@@ -24,11 +21,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 
 		if (dataLocalStorage !== null && dataLocalStorage !== 'undefined') {
 			setItems(JSON.parse(dataLocalStorage));
-			// schemaLocalStorage.isValid(JSON.parse(dataLocalStorage)).then((res) => {
-			// 	if (res) {
-
-			// 	}
-			// });
+		
 		}
 	}, []);
 	useEffect(() => {
@@ -38,7 +31,8 @@ export function CartProvider({ children }: PropsWithChildren) {
 	const addToCart = (name: string) => {
 		if (!items.find((product) => product.name === name))
 			setItems((prev) => [...prev, { name }]);
-			addNotificationContext?.setIsOpen(true)
+		addNotificationContext?.showNotification();
+		addNotificationContext?.closeOnTimeNotification();
 	};
 
 	return (
