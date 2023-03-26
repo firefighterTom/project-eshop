@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
-import { validationLocalStorage } from './utilsCartContext';
+import { addProductToCart, validationLocalStorage } from './utilsCartContext';
 
 type CartContextType = {
 	items: { name: string }[];
@@ -26,19 +26,8 @@ export function CartProvider({ children }: PropsWithChildren) {
 			window.localStorage.setItem('cart', JSON.stringify(items));
 	}, [items]);
 	const addToCart = (element: addedProduct) => {
-		const exist = items.find((product) => product.name === element.name);
-		if (!exist) {
-			setItems((prev) => [
-				...prev,
-				{ name: element.name, id: element.id, amount: 1 },
-			]);
-		}
-		if (exist)
-			setItems(
-				items.map((el) =>
-					el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
-				)
-			);
+		const chosenProduct = addProductToCart(element, items);
+		if (chosenProduct) setItems(chosenProduct);
 	};
 
 	return (
@@ -55,4 +44,3 @@ export const useCartContext = () => {
 	}
 	return cartContext;
 };
-

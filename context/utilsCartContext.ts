@@ -11,25 +11,21 @@ type itemsCartType = {
 	amount: number;
 }[];
 
-// export const addProductToCart = (
-// 	element: addedProduct,
-// 	items: itemsCartType,
-// 	setItems: Dispatch<SetStateAction<itemsCartType>>
-// ) => {
-// 	const exist = items.find((product) => product.name === element.name);
-// 	if (!exist) {
-// 		setItems((prev) => [
-// 			...prev,
-// 			{ name: element.name, id: element.id, amount: 1 },
-// 		]);
-// 	}
-// 	if (exist)
-// 		setItems(
-// 			items.map((el) =>
-// 				el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
-// 			)
-// 		);
-// };
+export const addProductToCart = (
+	element: addedProduct,
+	items: itemsCartType
+) => {
+	const exist = items.find((product) => product.name === element.name);
+	if (!exist) {
+		return [...items, { name: element.name, id: element.id, amount: 1 }];
+	}
+	if (exist) {
+		const actualCart = items.map((el) =>
+			el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
+		);
+		return actualCart;
+	}
+};
 
 export function validationLocalStorage(
 	setItems: Dispatch<SetStateAction<itemsCartType>>
