@@ -19,19 +19,18 @@ export const addProductToCart = (
 	if (!exist) {
 		return [...items, { name: element.name, id: element.id, amount: 1 }];
 	}
-	if (exist) {
-		const actualCart = items.map((el) =>
-			el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
-		);
-		return actualCart;
-	}
+	const actualCart = items.map((el) =>
+		el.id === exist?.id ? { ...exist, amount: exist?.amount + 1 } : el
+	);
+
+	return actualCart;
 };
 
 export function validationLocalStorage(
 	setItems: Dispatch<SetStateAction<itemsCartType>>
 ) {
 	const dataLocalStorage = window.localStorage.getItem('cart');
-	if (dataLocalStorage !== null && dataLocalStorage !== 'undefined') {
+	if (dataLocalStorage !== null) {
 		const parsedCart = JSON.parse(dataLocalStorage) as unknown[];
 		const protectedCartFromLocalStorage = parsedCart.filter(
 			(product): product is SchemaProductCart => {
