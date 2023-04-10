@@ -1,16 +1,16 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { addProductToCart, validationLocalStorage } from './utilsCartContext';
-
-type CartContextType = {
-	items: { name: string }[];
-	addToCart: (value: addedProduct) => void;
-};
 type itemsCartType = {
 	name: string;
 	id: string;
 	amount: number;
 }[];
+type CartContextType = {
+	items: itemsCartType;
+	addToCart: (value: addedProduct) => void;
+};
+
 type addedProduct = {
 	name: string;
 	id: string;
