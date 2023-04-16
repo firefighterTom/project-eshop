@@ -12,24 +12,22 @@ export default function ProductPage() {
 		? router.query.products_name[0]
 		: router.query.products_name;
 
-	if (productName) {
-		const { data } = useGetProductBySlugQuery({
-			variables: { slug: productName },
-		});
-		if (!data) return <h2>Problem with fetching</h2>;
+	const { data } = useGetProductBySlugQuery({
+		variables: { slug: productName ?? '' },
+	});
+	if (!data) return <h2>Problem with fetching</h2>;
 
-		return (
-			<>
-				{addNotificationContext?.isOpen && <Notification></Notification>}
-				<pre>{JSON.stringify(data, null, 2)}</pre>
-				<button
-					className='bg-black text-white py-2 px-3 '
-					onClick={() => {
-						if (data.product) addToCart(data.product.name);
-					}}>
-					Add
-				</button>
-			</>
-		);
-	}
+	return (
+		<>
+			{addNotificationContext?.isOpen && <Notification></Notification>}
+			<pre>{JSON.stringify(data, null, 2)}</pre>
+			<button
+				className='bg-black text-white py-2 px-3 '
+				onClick={() => {
+					if (data.product) addToCart(data.product.name);
+				}}>
+				Add
+			</button>
+		</>
+	);
 }

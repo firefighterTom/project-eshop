@@ -4,7 +4,7 @@ import {
 } from 'context/contextAddNotification';
 import { CartProvider } from 'context/contextCart';
 import { PropsWithChildren } from 'react';
-import { AddNotification } from './Notification/Notification';
+// import { AddNotification } from './Notification/Notification';
 import { Nav } from './Nav';
 
 export function Layout({ children }: PropsWithChildren) {
