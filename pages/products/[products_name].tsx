@@ -1,9 +1,12 @@
+import { Notification } from 'components/Notification/Notification';
+import { useAddNotificationContext } from 'context/contextAddNotification';
 import { useCartContext } from 'context/contextCart';
 import { useGetProductBySlugQuery } from 'generated/graphql';
 import { useRouter } from 'next/router';
 
 export default function ProductPage() {
 	const { addToCart } = useCartContext();
+	const addNotificationContext = useAddNotificationContext();
 	const router = useRouter();
 	const productName = Array.isArray(router.query.products_name)
 		? router.query.products_name[0]
@@ -16,6 +19,9 @@ export default function ProductPage() {
 
 	return (
 		<>
+
+			{addNotificationContext?.isOpen && <Notification></Notification>}
+
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 			<button
 				className='bg-black text-white py-2 px-3 '
