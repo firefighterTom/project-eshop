@@ -19,12 +19,14 @@ export default function ProductPage() {
 
 	return (
 		<>
+
 			{addNotificationContext?.isOpen && <Notification></Notification>}
+
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 			<button
 				className='bg-black text-white py-2 px-3 '
 				onClick={() => {
-					if (data.product) addToCart(data.product.name);
+					if (data.product) addToCart(data.product);
 				}}>
 				Add
 			</button>

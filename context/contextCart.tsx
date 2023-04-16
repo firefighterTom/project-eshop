@@ -1,15 +1,24 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
-import * as yup from 'yup';
 import { createContext } from 'react';
+
 import { useAddNotificationContext } from './contextAddNotification';
+
+import { addProductToCart, validationLocalStorage } from './utilsCartContext';
+
 type CartContextType = {
 	items: { name: string }[];
-	addToCart: (value: string) => void;
+	addToCart: (value: addedProduct) => void;
 };
-const schemaLocalStorage = yup.array().max(3, 'Too much items');
 type itemsCartType = {
 	name: string;
+	id: string;
+	amount: number;
 }[];
+
+type addedProduct = {
+	name: string;
+	id: string;
+};
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
@@ -17,22 +26,23 @@ export function CartProvider({ children }: PropsWithChildren) {
 
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
-		const dataLocalStorage = window.localStorage.getItem('cart');
 
-		if (dataLocalStorage !== null && dataLocalStorage !== 'undefined') {
-			setItems(JSON.parse(dataLocalStorage));
-		
-		}
+		validationLocalStorage(setItems);
+
 	}, []);
 	useEffect(() => {
-		if (items.length > 0)
+		if (items.length)
 			window.localStorage.setItem('cart', JSON.stringify(items));
 	}, [items]);
-	const addToCart = (name: string) => {
-		if (!items.find((product) => product.name === name))
-			setItems((prev) => [...prev, { name }]);
-		addNotificationContext?.showNotification();
+
+
+
+	const addToCart = (element: addedProduct) => {
+  addNotificationContext?.showNotification();
 		addNotificationContext?.closeOnTimeNotification();
+		const chosenProduct = addProductToCart(element, items);
+		if (chosenProduct) setItems(chosenProduct);
+
 	};
 
 	return (
@@ -41,6 +51,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 		</CartContext.Provider>
 	);
 }
+
 export const useCartContext = () => {
 	const cartContext = useContext(CartContext);
 	if (cartContext === undefined) {
