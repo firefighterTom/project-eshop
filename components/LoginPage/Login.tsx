@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { loginSchema } from '../../schema/schemaRegister';
-import { Account } from '../LoginPage/Account';
+import { Input } from './Input';
 
 export function Login() {
 	type FormData = yup.InferType<typeof loginSchema>;
@@ -15,28 +15,27 @@ export function Login() {
 	});
 
 	return (
-	
-			<div className='w-4/6  bg-orange-300 py-4 m-auto rounded-2xl mb-3'>
-				<h2 className='text-center mb-4 font-bold uppercase'>Log in</h2>
-				<form
-					className='flex flex-col justify-center items-center'
-					onSubmit={handleSubmit((data: FormData) => {
-						console.log(data);
-					})}>
-					<Account
-						register={register}
-						typeOfInput={'email'}
-						error={errors.email?.message}></Account>
-					<Account
-						register={register}
-						typeOfInput={'password'}
-						error={errors.password?.message}></Account>
-					<button className='bg-black text-white py-1 px-2 rounded-md mt-2'>
-						Login
-					</button>
-				</form>
-			</div>
-			
-		
+		<div className='w-4/6  bg-orange-300 py-4 m-auto rounded-2xl mb-3'>
+			<h2 className='text-center mb-4 font-bold uppercase'>Log in</h2>
+			<form
+				className='flex flex-col justify-center items-center'
+				onSubmit={handleSubmit((data: FormData) => {})}>
+				<Input
+					{...register('email')}
+					inputName={'Email'}
+					type={'text'}
+					error={errors.email?.message}
+				/>
+				<Input
+					{...register('password')}
+					inputName={'Password'}
+					type={'password'}
+					error={errors.password?.message}
+				/>
+				<button className='bg-black text-white py-1 px-2 rounded-md mt-2'>
+					Login
+				</button>
+			</form>
+		</div>
 	);
 }

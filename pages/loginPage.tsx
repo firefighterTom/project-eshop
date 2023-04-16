@@ -1,12 +1,12 @@
 import { Login } from 'components/LoginPage/Login';
 import { Registration } from 'components/LoginPage/RegistrationPage';
 
-export default function LoginAndRegistration() {
+export default function LoginPage() {
 	return (
 		<>
-			<h1>E-shop</h1>
-			<Login></Login>
-			<Registration></Registration>
+			<h1 className='text-center'>E-shop</h1>
+			<Login/>
+			<Registration/>
 		</>
 	);
 }
