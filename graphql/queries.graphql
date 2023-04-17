@@ -2,11 +2,17 @@ query GetProductBySlug($slug: String!) {
 	product(where: { slug: $slug }) {
 		name
 		price
+		id
 		images {
 			id
 			url
 		}
+	}
+	reviews {
 		id
+		name
+		content
+		rating
 	}
 }
 
