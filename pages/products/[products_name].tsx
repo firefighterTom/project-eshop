@@ -1,5 +1,5 @@
 import { Notification } from 'components/Notification/Notification';
-import { Reviews } from 'components/Reviews';
+import { Reviews } from 'components/Reviews/Reviews';
 import { useAddNotificationContext } from 'context/contextAddNotification';
 import { useCartContext } from 'context/contextCart';
 import { useGetProductBySlugQuery } from 'generated/graphql';
@@ -17,14 +17,22 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data) return <h2>Problem with fetching</h2>;
-	console.log(data)
+	console.log(data);
 	return (
 		<>
-
-			{addNotificationContext?.isOpen && <Notification/>}
+			{/* {addNotificationContext?.isOpen && <Notification />} */}
 
 			<pre>{JSON.stringify(data, null, 2)}</pre>
-			<Reviews name={data.reviews[0].name} content={data.reviews[0].content}/>
+			<ul>
+				{data.reviews.map((rev) => {
+					return (
+						<li>
+							<Reviews name={rev.name} content={rev.content} rating={rev.rating}/>
+						</li>
+					);
+				})}
+			</ul>
+			<Reviews name={data.reviews[0].name} content={data.reviews[0].content} />
 			<button
 				className='bg-black text-white py-2 px-3 '
 				onClick={() => {
