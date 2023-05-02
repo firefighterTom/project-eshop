@@ -26,7 +26,7 @@ export default function ProductPage() {
 			<ul>
 				{data.reviews.map((rev) => {
 					return (
-						<li>
+						<li key={rev.id}>
 							<Reviews name={rev.name} content={rev.content} rating={rev.rating}/>
 						</li>
 					);
