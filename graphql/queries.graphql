@@ -16,5 +16,8 @@ query GetProducts {
 		name
 		price
 		slug
+		images {
+			url
+		}
 	}
 }
