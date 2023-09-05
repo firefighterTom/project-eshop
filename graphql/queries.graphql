@@ -18,3 +18,11 @@ query GetProducts {
 		slug
 	}
 }
+
+mutation MyMutation($InputAccount:AccountCreateInput!){
+  createAccount(data:$InputAccount){
+    email
+    password
+    id
+  }
+}

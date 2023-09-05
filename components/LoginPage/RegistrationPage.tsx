@@ -13,13 +13,24 @@ export function Registration() {
 	} = useForm<FormData>({
 		resolver: yupResolver(loginSchema),
 	});
+	const mutationFunction =async(registrationData:FormData)=>{
+		const response = await fetch("/api/register",{
+			method:"POST",
+			headers:{
+				'Content-Type':'application/json'
+			},
+			body:JSON.stringify(registrationData),
+		});
+		console.log(response)
+	}
+
 	return (
 		<div className='w-4/6  bg-orange-300 py-4 m-auto rounded-2xl'>
 			<h2 className='text-center mb-4 font-bold uppercase'>Create new Input</h2>
 			<form
 				className='flex flex-col justify-center items-center'
 				onSubmit={handleSubmit((data: FormData) => {
-					console.log(data)
+					mutationFunction(data)
 				})}>
 				<Input
 					{...register('email')}
