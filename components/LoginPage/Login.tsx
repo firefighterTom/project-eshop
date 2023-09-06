@@ -24,13 +24,13 @@ export function Login() {
 				})}>
 				<Input
 					{...register('email')}
-					inputName={'Email'}
+					inputname={'Email'}
 					type={'text'}
 					error={errors.email?.message}
 				/>
 				<Input
 					{...register('password')}
-					inputName={'Password'}
+					inputname={'Password'}
 					type={'password'}
 					error={errors.password?.message}
 				/>

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 interface Props {
-	inputName: string;
+	inputname: string;
 	error: string | undefined;
 	type: string;
 }
@@ -10,7 +10,7 @@ export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
 	return (
 		<>
 			<label className='mb-1 flex flex-col text-center'>
-				{props.inputName}
+				{props.inputname}
 				<input
 					ref={ref}
 					{...props}
