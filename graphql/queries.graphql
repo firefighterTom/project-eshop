@@ -19,8 +19,8 @@ query GetProducts {
 	}
 }
 
-mutation MyMutation($InputAccount:AccountCreateInput!){
-  createAccount(data:$InputAccount){
+mutation MyMutation($email:String!, $password:String!){
+  createAccount(data:{email:$email, password:$password}){
     email
     password
     id

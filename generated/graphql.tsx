@@ -11471,7 +11471,8 @@ export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string }> };
 
 export type MyMutationMutationVariables = Exact<{
-  InputAccount: AccountCreateInput;
+  email: Scalars['String'];
+  password: Scalars['String'];
 }>;
 
 
@@ -11557,8 +11558,8 @@ export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
 export const MyMutationDocument = gql`
-    mutation MyMutation($InputAccount: AccountCreateInput!) {
-  createAccount(data: $InputAccount) {
+    mutation MyMutation($email: String!, $password: String!) {
+  createAccount(data: {email: $email, password: $password}) {
     email
     password
     id
@@ -11580,7 +11581,8 @@ export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, M
  * @example
  * const [myMutationMutation, { data, loading, error }] = useMyMutationMutation({
  *   variables: {
- *      InputAccount: // value for 'InputAccount'
+ *      email: // value for 'email'
+ *      password: // value for 'password'
  *   },
  * });
  */
