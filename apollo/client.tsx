@@ -9,7 +9,7 @@ export const client = new ApolloClient({
 });
 
 export const admin = new ApolloClient({
-	uri: process.env.HYGRAPH_GRAPQL,
+	uri: getEnv(process.env.NEXT_PUBLIC_HYGRAPH_API),
 	cache: new InMemoryCache(),
 	headers: {
 		authorization: `Bearer ${process.env.HYGRAPH_TOKEN}`,
