@@ -7,11 +7,9 @@ import { Layout } from 'components/Layout';
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<ApolloProvider client={client}>
-		<ApolloProvider client={admin}>
 			<Layout>
 			<Component {...pageProps} />
 			</Layout>
-		</ApolloProvider>
 		</ApolloProvider>
 	);
 }
