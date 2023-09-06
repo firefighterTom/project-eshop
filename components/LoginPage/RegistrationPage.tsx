@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { loginSchema } from 'schema/schemaRegister';
-import  {Input}  from 'components/LoginPage/Input';
+import { Input } from 'components/LoginPage/Input';
 
 export function Registration() {
 	type FormData = yup.InferType<typeof loginSchema>;
@@ -13,16 +13,16 @@ export function Registration() {
 	} = useForm<FormData>({
 		resolver: yupResolver(loginSchema),
 	});
-	const mutationFunction =async(registrationData:FormData)=>{
-		const response = await fetch("/api/register",{
-			method:"POST",
-			headers:{
-				'Content-Type':'application/json'
+	const mutationFunction = async (registrationData: FormData) => {
+		const response = await fetch('/api/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
 			},
-			body:JSON.stringify(registrationData),
+			body: JSON.stringify(registrationData),
 		});
-		console.log(response)
-	}
+		console.log(await response.json());
+	};
 
 	return (
 		<div className='w-4/6  bg-orange-300 py-4 m-auto rounded-2xl'>
@@ -30,24 +30,24 @@ export function Registration() {
 			<form
 				className='flex flex-col justify-center items-center'
 				onSubmit={handleSubmit((data: FormData) => {
-					mutationFunction(data)
+					mutationFunction(data);
 				})}>
 				<Input
 					{...register('email')}
-					inputName={'Email'}
+					inputname={'Email'}
 					type={'text'}
 					error={errors.email?.message}
 				/>
 
 				<Input
 					{...register('password')}
-					inputName={'Password'}
+					inputname={'Password'}
 					type={'password'}
 					error={errors.password?.message}
 				/>
 				<Input
 					{...register('passwordConfirmation')}
-					inputName={'Repeat Password'}
+					inputname={'Repeat Password'}
 					type={'password'}
 					error={errors.passwordConfirmation?.message}
 				/>
