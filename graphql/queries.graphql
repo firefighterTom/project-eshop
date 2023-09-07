@@ -19,10 +19,18 @@ query GetProducts {
 	}
 }
 
-mutation MyMutation($email:String!, $password:String!){
-  createAccount(data:{email:$email, password:$password}){
-    email
-    password
-    id
-  }
+mutation MyMutation($email: String!, $password: String!) {
+	createAccount(data: { email: $email, password: $password }) {
+		email
+		password
+		id
+	}
+}
+
+query GetAccountByEmail($email: String!) {
+	account(where: { email: $email }, stage: DRAFT) {
+		id
+		email
+		password
+	}
 }
