@@ -1,17 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { loginSchema } from 'schema/schemaRegister';
+import { registrationSchema } from 'schema/schemaRegister';
 import { Input } from 'components/LoginPage/Input';
 
 export function Registration() {
-	type FormData = yup.InferType<typeof loginSchema>;
+	type FormData = yup.InferType<typeof registrationSchema>;
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormData>({
-		resolver: yupResolver(loginSchema),
+		resolver: yupResolver(registrationSchema),
 	});
 	const mutationFunction = async (registrationData: FormData) => {
 		const response = await fetch('/api/register', {
