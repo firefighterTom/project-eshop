@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { loginSchema } from '../../schema/schemaRegister';
 import  {Input}  from './Input';
+import { signIn } from 'next-auth/react';
 
 export function Login() {
 	type FormData = yup.InferType<typeof loginSchema>;
@@ -20,7 +21,7 @@ export function Login() {
 			<form
 				className='flex flex-col justify-center items-center'
 				onSubmit={handleSubmit((data: FormData) => {
-					console.log(data)
+					signIn("credentials",data)
 				})}>
 				<Input
 					{...register('email')}
