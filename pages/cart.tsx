@@ -22,14 +22,6 @@ export default function Cart() {
 			session: Stripe.Response<Stripe.Checkout.Session>;
 		};
 		console.log(session);
-		const res = await fetch('api/status', {
-			method: 'POST',
-			body: JSON.stringify(session),
-		});
-		const status =
-			(await res.json()) as Stripe.Response<Stripe.Checkout.Session>;
-		console.log(status);
-
 		// stripe?.redirectToCheckout({ sessionId: session.id });
 	};
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
