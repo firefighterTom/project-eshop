@@ -1,6 +1,19 @@
+import { client } from 'apollo/client';
 import { itemsCartType } from 'context/utilsCartContext';
+import {
+	GetProductsToPaymentDocument,
+	GetProductsToPaymentQuery,
+	GetProductsToPaymentQueryVariables,
+} from 'generated/graphql';
 import { NextApiHandler } from 'next';
 import Stripe from 'stripe';
+
+type SecuredProduct = {
+	price: number;
+	name: string;
+	amount: number;
+	images: string[];
+};
 
 const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 	const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
@@ -10,13 +23,37 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 	}
 
 	const body = JSON.parse(req.body) as itemsCartType;
+
+	const { data } = await client.query<
+		GetProductsToPaymentQuery,
+		GetProductsToPaymentQueryVariables
+	>({
+		query: GetProductsToPaymentDocument,
+		variables: {
+			productsId: body.map(({ id }) => id),
+		},
+	});
+	const securedProductsToPayment = data.products
+		.map((product) => {
+			const productWithAmount = body.find(({ id }) => id === product.id);
+			if (productWithAmount) {
+				return {
+					price: product.price,
+					name: product.name,
+					amount: productWithAmount.amount,
+					images: product.images.map((d) => d.url),
+				};
+			}
+		})
+		.filter((v): v is SecuredProduct => Boolean(v));
 	const productsToStripe: Stripe.Checkout.SessionCreateParams.LineItem[] =
-		body.map((product) => ({
+		securedProductsToPayment.map((product) => ({
 			price_data: {
 				currency: 'PLN',
 				unit_amount: product.price,
 				product_data: {
 					name: product.name,
+					images: product.images,
 				},
 			},
 			quantity: product.amount,
@@ -31,6 +68,5 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		line_items: productsToStripe,
 	});
 	res.json({ session });
-    
 };
 export default stripeCheckoutHandler;
