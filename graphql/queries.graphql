@@ -18,3 +18,15 @@ query GetProducts {
 		slug
 	}
 }
+
+query GetProductsToPayment($productsId:[ID!]!){
+  products(where:{id_in:$productsId}){
+	id
+    name
+    price
+    images{
+      id
+	  url
+    }
+  }
+}
