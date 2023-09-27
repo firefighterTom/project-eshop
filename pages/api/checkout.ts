@@ -1,9 +1,13 @@
-import { client } from 'apollo/client';
+import { admin, client } from 'apollo/client';
 import { itemsCartType } from 'context/utilsCartContext';
 import {
+	CreateOrderDocument,
+	CreateOrderMutationResult,
+	CreateOrderMutationVariables,
 	GetProductsToPaymentDocument,
 	GetProductsToPaymentQuery,
 	GetProductsToPaymentQueryVariables,
+	OrderItemCreateInput,
 } from 'generated/graphql';
 import { NextApiHandler } from 'next';
 import Stripe from 'stripe';
@@ -58,6 +62,11 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 			},
 			quantity: product.amount,
 		}));
+	const createOrderInputs: OrderItemCreateInput[] =
+		securedProductsToPayment.map((product) => ({
+			quantity: product.amount,
+			total: product.price * product.amount,
+		}));
 	const stripe = new Stripe(stripeSecretKey, { apiVersion: '2022-11-15' });
 	const session = await stripe.checkout.sessions.create({
 		mode: 'payment',
@@ -67,6 +76,22 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		cancel_url: 'http://localhost:3000/cancel.html',
 		line_items: productsToStripe,
 	});
+	if (session.status === 'open') {
+		const sessionTotal=(session.amount_total)?session.amount_total:0;
+		const d = await admin.mutate<
+			CreateOrderMutationResult,
+			CreateOrderMutationVariables
+		>({
+			variables: {
+				email: 'a@example.com',
+				orderItems: createOrderInputs,
+				totalOrder:sessionTotal,
+				stripeCheckoutId:session.id
+			},
+			mutation:CreateOrderDocument
+		});
+	}
+
 	res.json({ session });
 };
 export default stripeCheckoutHandler;
