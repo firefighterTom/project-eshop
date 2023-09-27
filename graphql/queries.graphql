@@ -19,14 +19,33 @@ query GetProducts {
 	}
 }
 
-query GetProductsToPayment($productsId:[ID!]!){
-  products(where:{id_in:$productsId}){
-	id
-    name
-    price
-    images{
-      id
-	  url
-    }
-  }
+query GetProductsToPayment($productsId: [ID!]!) {
+	products(where: { id_in: $productsId }) {
+		id
+		name
+		price
+		images {
+			id
+			url
+		}
+	}
+}
+
+mutation CreateOrder(
+	$email: String!
+	$totalOrder: Int!
+	$stripeCheckoutId: String!
+	$orderItems: [OrderItemCreateInput!]!
+) {
+	createOrder(
+		data: {
+			email: $email
+			total: $totalOrder
+			stripeCheckoutId: $stripeCheckoutId
+			orderItems: { create: $orderItems }
+			currentStatus: NEW
+		}
+	) {
+		id
+	}
 }
