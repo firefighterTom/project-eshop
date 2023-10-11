@@ -1,7 +1,6 @@
 import { Slider } from 'components/Slider';
 import { useGetProductsQuery } from 'generated/graphql';
 import Link from 'next/link';
-
 export default function Home() {
 	const { data, loading, error } = useGetProductsQuery();
 	if (!data) return <h2>Problem with fetching</h2>;

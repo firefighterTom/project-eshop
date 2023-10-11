@@ -4,16 +4,15 @@ import { createContext } from 'react';
 import { useAddNotificationContext } from './contextAddNotification';
 
 import { addProductToCart, validationLocalStorage } from './utilsCartContext';
-
-type CartContextType = {
-	items: { name: string }[];
-	addToCart: (value: addedProduct) => void;
-};
 type itemsCartType = {
 	name: string;
 	id: string;
 	amount: number;
 }[];
+type CartContextType = {
+	items: itemsCartType;
+	addToCart: (value: addedProduct) => void;
+};
 
 type addedProduct = {
 	name: string;
@@ -26,23 +25,18 @@ export function CartProvider({ children }: PropsWithChildren) {
 
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
-
 		validationLocalStorage(setItems);
-
 	}, []);
 	useEffect(() => {
 		if (items.length)
 			window.localStorage.setItem('cart', JSON.stringify(items));
 	}, [items]);
 
-
-
 	const addToCart = (element: addedProduct) => {
-  addNotificationContext?.showNotification();
+		addNotificationContext?.showNotification();
 		addNotificationContext?.closeOnTimeNotification();
 		const chosenProduct = addProductToCart(element, items);
 		if (chosenProduct) setItems(chosenProduct);
-
 	};
 
 	return (
