@@ -13,8 +13,16 @@ export function Slider(props: ProductsProps) {
 		<>
 			<h2 className='text-center mb-10'>Bestseller</h2>
 			<Swiper
-				slidesPerView={3}
-				spaceBetween={30}
+				breakpoints={{
+					768: {
+						slidesPerView: 2,
+						spaceBetween: 20,
+					},
+					1024: {
+						slidesPerView: 3,
+						spaceBetween: 30,
+					},
+				}}
 				loop={true}
 				autoplay={{
 					delay: 5000,
