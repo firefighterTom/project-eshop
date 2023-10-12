@@ -1,0 +1,1 @@
+export {default as EmptyStar} from './empty-star.svg'
