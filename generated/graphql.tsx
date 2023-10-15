@@ -11470,6 +11470,21 @@ export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, images: Array<{ __typename?: 'Asset', url: string }> }> };
 
+export type MyMutationMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type MyMutationMutation = { __typename?: 'Mutation', createAccount?: { __typename?: 'Account', email: string, password: string, id: string } | null };
+
+export type GetAccountByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetAccountByEmailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, email: string, password: string } | null };
+
 
 export const GetProductBySlugDocument = gql`
     query GetProductBySlug($slug: String!) {
@@ -11558,3 +11573,76 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export const MyMutationDocument = gql`
+    mutation MyMutation($email: String!, $password: String!) {
+  createAccount(data: {email: $email, password: $password}) {
+    email
+    password
+    id
+  }
+}
+    `;
+export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, MyMutationMutationVariables>;
+
+/**
+ * __useMyMutationMutation__
+ *
+ * To run a mutation, you first call `useMyMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMyMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [myMutationMutation, { data, loading, error }] = useMyMutationMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useMyMutationMutation(baseOptions?: Apollo.MutationHookOptions<MyMutationMutation, MyMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MyMutationMutation, MyMutationMutationVariables>(MyMutationDocument, options);
+      }
+export type MyMutationMutationHookResult = ReturnType<typeof useMyMutationMutation>;
+export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
+export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
+export const GetAccountByEmailDocument = gql`
+    query GetAccountByEmail($email: String!) {
+  account(where: {email: $email}, stage: DRAFT) {
+    id
+    email
+    password
+  }
+}
+    `;
+
+/**
+ * __useGetAccountByEmailQuery__
+ *
+ * To run a query within a React component, call `useGetAccountByEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountByEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetAccountByEmailQuery(baseOptions: Apollo.QueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
+      }
+export function useGetAccountByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
+        }
+export type GetAccountByEmailQueryHookResult = ReturnType<typeof useGetAccountByEmailQuery>;
+export type GetAccountByEmailLazyQueryHookResult = ReturnType<typeof useGetAccountByEmailLazyQuery>;
+export type GetAccountByEmailQueryResult = Apollo.QueryResult<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>;

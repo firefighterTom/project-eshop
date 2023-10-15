@@ -25,7 +25,11 @@ export function CartProvider({ children }: PropsWithChildren) {
 
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
-		validationLocalStorage(setItems);
+		try {
+			validationLocalStorage(setItems);
+		} catch (error) {
+			setItems([]);
+		}
 	}, []);
 	useEffect(() => {
 		if (items.length)
