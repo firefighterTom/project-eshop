@@ -5,7 +5,9 @@ import {
 import { CartProvider } from 'context/contextCart';
 import { PropsWithChildren } from 'react';
 // import { AddNotification } from './Notification/Notification';
-import { Nav } from './Nav';
+import { Nav } from './Nav/Nav';
+import { ShowingPanelMenuProvider } from 'context/contextIsShowingPanelMenu';
+import { Header } from './Header/Header';
 
 export function Layout({ children }: PropsWithChildren) {
 	const addNotificationContext = useAddNotificationContext();
@@ -13,11 +15,14 @@ export function Layout({ children }: PropsWithChildren) {
 		<div className='max-w-screen-2xl mx-auto'>
 			<AddNotificationProvider>
 				<CartProvider>
-					<header>
-						<Nav/>
-					</header>
-					<main>{children}</main>
-					<footer></footer>
+					<ShowingPanelMenuProvider>
+						<header>
+							<Nav />
+							<Header />
+						</header>
+						<main>{children}</main>
+						<footer></footer>
+					</ShowingPanelMenuProvider>
 				</CartProvider>
 			</AddNotificationProvider>
 		</div>
