@@ -7,7 +7,7 @@ export default function Home() {
 	if (!data) return <h2>Problem with fetching</h2>;
 	return (
 		<>
-		<Search/>
+			{/* <Search/> */}
 			{data.products.map(({ slug, name, id }) => (
 				<Link key={id} href={`products/${slug}`}>
 					<h2>{name}</h2>
