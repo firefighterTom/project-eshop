@@ -11,7 +11,7 @@ const ShowingPanelMenuContext = createContext<
 >(undefined);
 
 export function ShowingPanelMenuProvider({ children }: PropsWithChildren) {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 	const openPanelMenu = () => {
 		setIsOpen(!isOpen);
 	};
