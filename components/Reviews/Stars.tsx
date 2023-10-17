@@ -7,7 +7,7 @@ function Star(props: Star) {
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			className='icon icon-tabler icon-tabler-star-filled'
-			width={24}
+			width={18}
 			height={24}
 			viewBox='0 0 24 24'
 			strokeWidth='1.25'
@@ -35,12 +35,13 @@ export function Stars(props: RatingProp) {
 					return (
 						<li>
 							{props.rating > el ? (
-								<Star starColor='#333' />
-							) : (
 								<Star starColor='#d4af37' />
+							) : (
+								<Star starColor='#333' />
 							)}
 						</li>
 					);
+				return <Star starColor='#333' />;
 			})}
 		</ul>
 	);
