@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 import { Autoplay, Navigation } from 'swiper';
+import { Product } from './Product';
 type ProductsProps = {
 	products: GetProductsQuery;
 };
@@ -34,9 +35,18 @@ export function Slider(props: ProductsProps) {
 				{props.products.products.map((product) => {
 					const productImg = product.images[0].url;
 					const productName = product.name;
+					const productPrice = product.price;
+					const productReviews = product.reviews;
+					const linkToProduct = `/${product.slug}`;
 					return (
 						<SwiperSlide key={product.id}>
-							<img className='h-28 m-auto' src={productImg} alt={productName} />
+							<Product
+								name={productName}
+								img={productImg}
+								price={productPrice}
+								reviews={productReviews}
+								linkToProduct={linkToProduct}
+							/>
 						</SwiperSlide>
 					);
 				})}
