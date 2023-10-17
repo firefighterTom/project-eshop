@@ -10,12 +10,12 @@ import IconOpenMenuBar from './assets/icon-openMenuBar.svg';
 export function Nav() {
 	const { isOpen, openPanelMenu } = useShowingPanelMenuContext();
 	return (
-		<div className='flex justify-between px-6 py-6 bg-black text-white relative'>
+		<div className='flex justify-between px-6 py-6 bg-white text-black relative'>
 			{!isOpen && <PanelMenu />}
 			<button onClick={openPanelMenu}>
 				<IconOpenMenuBar />
 			</button>
-			<Link href={'/'} className='text-xl'>
+			<Link href={'/'} className='text-3xl font-gabarito uppercase'>
 				E-shop
 			</Link>
 			<div className='flex items-center gap-6 '>
