@@ -25,6 +25,10 @@ query GetProducts {
 		images {
 			url
 		}
+		description
+		reviews {
+			rating
+		}
 	}
 }
 

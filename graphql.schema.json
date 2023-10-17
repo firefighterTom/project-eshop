@@ -35385,6 +35385,22 @@
             "deprecationReason": null
           },
           {
+            "name": "currentStatus",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "documentInStages",
             "description": "Get the document in other stages",
             "args": [
@@ -36133,6 +36149,22 @@
               "kind": "SCALAR",
               "name": "DateTime",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -39944,6 +39976,62 @@
             "deprecationReason": null
           },
           {
+            "name": "currentStatus",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_in",
+            "description": "All values that are contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_not",
+            "description": "Any other value that exists and is not equal to the given value.",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_not_in",
+            "description": "All values that are not contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "documentInStages_every",
             "description": null,
             "type": {
@@ -40797,6 +40885,18 @@
             "deprecationReason": null
           },
           {
+            "name": "currentStatus_ASC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_DESC",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "email_ASC",
             "description": null,
             "isDeprecated": false,
@@ -40872,11 +40972,70 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "OrderStatus",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CANCELED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "IN_PROGRESS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NEW",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PAID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RECIVED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SEND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "OrderUpdateInput",
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "currentStatus",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "email",
             "description": null,
@@ -41087,6 +41246,18 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "currentStatus",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "email",
             "description": null,
@@ -41595,6 +41766,62 @@
               "kind": "INPUT_OBJECT",
               "name": "UserWhereInput",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_in",
+            "description": "All values that are contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_not",
+            "description": "Any other value that exists and is not equal to the given value.",
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderStatus",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "currentStatus_not_in",
+            "description": "All values that are not contained in given list.",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderStatus",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
