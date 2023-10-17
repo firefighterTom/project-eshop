@@ -7,7 +7,6 @@ import { PropsWithChildren } from 'react';
 // import { AddNotification } from './Notification/Notification';
 import { Nav } from './Nav/Nav';
 import { ShowingPanelMenuProvider } from 'context/contextIsShowingPanelMenu';
-import { Header } from './Header/Header';
 
 export function Layout({ children }: PropsWithChildren) {
 	const addNotificationContext = useAddNotificationContext();
@@ -18,7 +17,6 @@ export function Layout({ children }: PropsWithChildren) {
 					<ShowingPanelMenuProvider>
 						<header>
 							<Nav />
-							<Header />
 						</header>
 						<main>{children}</main>
 						<footer></footer>
