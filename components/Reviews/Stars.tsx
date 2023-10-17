@@ -35,13 +35,13 @@ export function Stars(props: RatingProp) {
 					return (
 						<li>
 							{props.rating > el ? (
-								<Star starColor='#d4af37' />
+								<Star key={el} starColor='#d4af37' />
 							) : (
-								<Star starColor='#333' />
+								<Star key={el} starColor='#333' />
 							)}
 						</li>
 					);
-				return <Star starColor='#333' />;
+				return <Star key={el} starColor='#333' />;
 			})}
 		</ul>
 	);
