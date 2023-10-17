@@ -12,18 +12,19 @@ import { useEffect, useState } from 'react';
 type ImgKeeper = {
 	src: StaticImageData;
 	name: string;
+	alt: string;
 };
 
 export default function SliderHeader() {
 	const imgForBiggerScreen = [
-		{ src: BiggerImgShoes, name: 'BiggerImgShoes' },
-		{ src: BiggerImgBikes, name: 'BiggerImgBikes' },
-		{ src: BiggerImgTennis, name: 'BiggerImgTennis' },
+		{ src: BiggerImgShoes, name: 'BiggerImgShoes', alt: 'Basketball shoes' },
+		{ src: BiggerImgBikes, name: 'BiggerImgBikes', alt: 'Stationary bikes' },
+		{ src: BiggerImgTennis, name: 'BiggerImgTennis', alt: 'Tennis racket' },
 	];
 	const imgForSmallerScreen = [
-		{ src: SmallerImgShoes, name: 'SmallerImgShoes' },
-		{ src: SmallerImgBikes, name: 'SmallerImgBikes' },
-		{ src: SmallerImgTennis, name: 'SmallerImgTennis' },
+		{ src: SmallerImgShoes, name: 'SmallerImgShoes', alt: 'Basketball shoes' },
+		{ src: SmallerImgBikes, name: 'SmallerImgBikes', alt: 'Stationary bikes' },
+		{ src: SmallerImgTennis, name: 'SmallerImgTennis', alt: 'Tennis racket' },
 	];
 	const [imgSrc, setImgSrc] = useState<ImgKeeper[]>([]);
 	useEffect(() => {
@@ -52,7 +53,7 @@ export default function SliderHeader() {
 								width={0}
 								height={0}
 								className='w-full h-[60vh]'
-								alt='Basketball shoes'
+								alt={photo.alt}
 							/>
 						</SwiperSlide>
 					);
