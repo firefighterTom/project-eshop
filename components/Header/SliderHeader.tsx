@@ -1,10 +1,38 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Shoes from '../../images/shoes-1011596_1920.jpg';
-import Gym from '../../images/sports-1962574_1920.jpg';
+import BiggerImgShoes from '../../images/shoesBiggerScreen.jpg';
+import SmallerImgShoes from '../../images/shoesSmallScreen.jpg';
+import BiggerImgBikes from '../../images/bikesBiggerScreen.jpg';
+import SmallerImgBikes from '../../images/bikesSmallerScreen.jpg';
+import BiggerImgTennis from '../../images/tennisBiggerScreen.jpg';
+import SmallerImgTennis from '../../images/tennisSmallerScreen.jpg';
 import { Autoplay } from 'swiper';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import { useEffect, useState } from 'react';
+
+type ImgKeeper = {
+	src: StaticImageData;
+	name: string;
+};
 
 export default function SliderHeader() {
+	const imgForBiggerScreen = [
+		{ src: BiggerImgShoes, name: 'BiggerImgShoes' },
+		{ src: BiggerImgBikes, name: 'BiggerImgBikes' },
+		{ src: BiggerImgTennis, name: 'BiggerImgTennis' },
+	];
+	const imgForSmallerScreen = [
+		{ src: SmallerImgShoes, name: 'SmallerImgShoes' },
+		{ src: SmallerImgBikes, name: 'SmallerImgBikes' },
+		{ src: SmallerImgTennis, name: 'SmallerImgTennis' },
+	];
+	const [imgSrc, setImgSrc] = useState<ImgKeeper[]>([]);
+	useEffect(() => {
+		if (window.innerWidth < 800) {
+			setImgSrc(imgForSmallerScreen);
+		} else {
+			setImgSrc(imgForBiggerScreen);
+		}
+	}, [window.innerWidth]);
 	return (
 		<>
 			<Swiper
@@ -15,24 +43,20 @@ export default function SliderHeader() {
 				loop={true}
 				modules={[Autoplay]}
 				className='mySwiper z-0'>
-				<SwiperSlide>
-					<Image
-						src={Shoes}
-						width={0}
-						height={0}
-						className='w-full h-[50vh]'
-						alt='Basketball shoes'
-					/>
-				</SwiperSlide>
-				<SwiperSlide>
-					<Image
-						src={Gym}
-						width={0}
-						height={0}
-						className='w-full h-[50vh]'
-						alt='Stationary bikes'
-					/>
-				</SwiperSlide>
+				{imgSrc.map((photo) => {
+					return (
+						<SwiperSlide key={photo.name}>
+							<Image
+								priority={true}
+								src={photo.src}
+								width={0}
+								height={0}
+								className='w-full h-[60vh]'
+								alt='Basketball shoes'
+							/>
+						</SwiperSlide>
+					);
+				})}
 			</Swiper>
 		</>
 	);
