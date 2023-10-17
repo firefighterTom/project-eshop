@@ -5,6 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily:{
+      'gabarito':['"Gabarito"', 'sans-serif']
+    },
     screens: {
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
