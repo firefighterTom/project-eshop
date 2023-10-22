@@ -15,7 +15,7 @@ export function Layout({ children }: PropsWithChildren) {
 			<AddNotificationProvider>
 				<CartProvider>
 					<ShowingPanelMenuProvider>
-						<header>
+						<header className='sticky top-0 z-20 '>
 							<Nav />
 						</header>
 						<main>{children}</main>
