@@ -4,18 +4,18 @@ export function HeaderText() {
 	return (
 		<>
 			<div className='absolute w-full h-full z-20 flex flex-col justify-center items-center text-white '>
-				<h1 className='uppercase font-gabarito text-3xl mb-5'>
+				<h1 className='uppercase font-gabarito text-2xl sm:text-3xl lg:text-4xl mb-5'>
 					Sports equipment
 				</h1>
-				<p>
+				<p className='text-sm sm:text-base lg:text-lg text-center mx-2 mb-2'>
 					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Debitis,
 					explicabo!
 				</p>
-				<button className='bg-slate-400 py-2 px-3 mt-2 rounded-md '>
+				<button className='py-2 px-3 mt-2 bg-[#70a9a1] text-xs sm:text-sm lg:text-base rounded'>
 					<Link href={'/'}>View collection</Link>
 				</button>
 			</div>
-			<div className='absolute w-full h-full z-10 bg-black opacity-25 '></div>
+			<div className='absolute w-full h-full z-10 bg-black opacity-[.60] '></div>
 		</>
 	);
 }
