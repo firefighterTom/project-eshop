@@ -1,5 +1,10 @@
-import { type } from 'os';
-import { PropsWithChildren, createContext, useContext, useState } from 'react';
+import {
+	PropsWithChildren,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 
 type ShowingPanelContextType = {
 	isOpen: boolean;
@@ -12,6 +17,14 @@ const ShowingPanelMenuContext = createContext<
 
 export function ShowingPanelMenuProvider({ children }: PropsWithChildren) {
 	const [isOpen, setIsOpen] = useState(true);
+	const changeOverflowBody = () => {
+		const bodyElement = document.body;
+		bodyElement.style.overflow = isOpen ? 'visible' : 'hidden';
+	};
+	useEffect(() => {
+		changeOverflowBody();
+	}, [isOpen]);
+
 	const openPanelMenu = () => {
 		setIsOpen(!isOpen);
 	};
