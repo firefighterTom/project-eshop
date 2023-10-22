@@ -43,7 +43,7 @@ export default function SliderHeader() {
 				}}
 				loop={true}
 				modules={[Autoplay]}
-				className='mySwiper z-0'>
+				className='mySwiper'>
 				{imgSrc.map((photo) => {
 					return (
 						<SwiperSlide key={photo.name}>
@@ -52,7 +52,7 @@ export default function SliderHeader() {
 								src={photo.src}
 								width={0}
 								height={0}
-								className='w-full h-[60vh]'
+								className='w-full h-[70vh] '
 								alt={photo.alt}
 							/>
 						</SwiperSlide>
