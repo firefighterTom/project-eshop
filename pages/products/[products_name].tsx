@@ -17,7 +17,6 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data) return <h2>Problem with fetching</h2>;
-	console.log(data);
 	return (
 		<>
 			{/* {addNotificationContext?.isOpen && <Notification />} */}
@@ -27,7 +26,11 @@ export default function ProductPage() {
 				{data.reviews.map((rev) => {
 					return (
 						<li key={rev.id}>
-							<Reviews name={rev.name} content={rev.content} rating={rev.rating}/>
+							<Reviews
+								name={rev.name}
+								content={rev.content}
+								rating={rev.rating}
+							/>
 						</li>
 					);
 				})}
