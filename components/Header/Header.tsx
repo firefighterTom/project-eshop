@@ -3,7 +3,7 @@ import SliderHeader from './SliderHeader';
 
 export function Header() {
 	return (
-		<div className='relative z-0'>
+		<div className='relative'>
 			<HeaderText />
 			<SliderHeader></SliderHeader>
 		</div>
