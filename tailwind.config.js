@@ -21,6 +21,22 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
+    extend:{
+      colors:{
+        'gold': '#d4af37',
+        'quartz-gray':'#534b52'
+      }, 
+      animation:{
+        'opacity':'opacity .3s forwards'
+      },
+      keyframes:{
+        'opacity':{
+          '0%':{opacity:'0'},
+          '100%':{opacity:'1'}
+        }
+      }
+    },
+    
   },
   plugins: [],
 }
