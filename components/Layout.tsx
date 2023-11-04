@@ -1,12 +1,12 @@
 import {
 	AddNotificationProvider,
 	useAddNotificationContext,
-} from 'context/contextAddNotification';
-import { CartProvider } from 'context/contextCart';
+} from 'context/addNotification';
+import { CartProvider } from 'context/cart';
 import { PropsWithChildren } from 'react';
 // import { AddNotification } from './Notification/Notification';
 import { Nav } from './Nav/Nav';
-import { ShowingPanelMenuProvider } from 'context/contextIsShowingPanelMenu';
+import { ShowingPanelMenuProvider } from 'context/showingPanelMenu';
 
 export function Layout({ children }: PropsWithChildren) {
 	const addNotificationContext = useAddNotificationContext();

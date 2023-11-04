@@ -1,5 +1,5 @@
-import { useAddNotificationContext } from 'context/contextAddNotification';
-import  IconClose  from './assets/icon-close.svg';
+import { useAddNotificationContext } from 'context/addNotification';
+import IconClose from './assets/icon-close.svg';
 
 export function Notification() {
 	const addNotificationContext = useAddNotificationContext();

@@ -1,4 +1,4 @@
-import { useShowingPanelMenuContext } from 'context/contextIsShowingPanelMenu';
+import { useShowingPanelMenuContext } from 'context/showingPanelMenu';
 import Link from 'next/link';
 import IconCloseMenuBar from './assets/icon-closeMenuBar.svg';
 

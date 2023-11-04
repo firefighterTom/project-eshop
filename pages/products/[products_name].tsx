@@ -1,7 +1,7 @@
 import { Notification } from 'components/Notification/Notification';
 import { Reviews } from 'components/Reviews/Reviews';
-import { useAddNotificationContext } from 'context/contextAddNotification';
-import { useCartContext } from 'context/contextCart';
+import { useAddNotificationContext } from 'context/addNotification';
+import { useCartContext } from 'context/cart';
 import { useGetProductBySlugQuery } from 'generated/graphql';
 import { useRouter } from 'next/router';
 
@@ -27,7 +27,11 @@ export default function ProductPage() {
 				{data.reviews.map((rev) => {
 					return (
 						<li key={rev.id}>
-							<Reviews name={rev.name} content={rev.content} rating={rev.rating}/>
+							<Reviews
+								name={rev.name}
+								content={rev.content}
+								rating={rev.rating}
+							/>
 						</li>
 					);
 				})}

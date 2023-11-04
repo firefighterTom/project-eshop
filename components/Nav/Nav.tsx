@@ -3,7 +3,7 @@ import IconShoppingCart from './assets/icon-shoppingCart.svg';
 import IconSearch from './assets/icon-search.svg';
 import { Search } from 'components/Search/Search';
 import { PanelMenu } from './PanelMenu';
-import { useShowingPanelMenuContext } from 'context/contextIsShowingPanelMenu';
+import { useShowingPanelMenuContext } from 'context/showingPanelMenu';
 import IconOpenMenuBar from './assets/icon-openMenuBar.svg';
 
 export function Nav() {
