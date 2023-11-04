@@ -5,12 +5,14 @@ import TennisImg from '../../images/tennisImg.jpg';
 import { Autoplay } from 'swiper';
 import Image from 'next/image';
 
+const imgages = [
+	{ src: ShoesImg, name: 'ShoesImg', alt: 'Basketball shoes' },
+	{ src: BikeImg, name: 'BikeImg', alt: 'Stationary bikes' },
+	{ src: TennisImg, name: 'TennisImg', alt: 'Tennis racket' },
+];
+
 export default function SliderHeader() {
-	const imgages = [
-		{ src: ShoesImg, name: 'ShoesImg', alt: 'Basketball shoes' },
-		{ src: BikeImg, name: 'BikeImg', alt: 'Stationary bikes' },
-		{ src: TennisImg, name: 'TennisImg', alt: 'Tennis racket' },
-	];
+	
 
 	return (
 		<>
