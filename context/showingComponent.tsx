@@ -32,7 +32,7 @@ const ShowingComponentContext = createContext<ShowingComponentData | undefined>(
 	undefined
 );
 
-export function ShowingPanelMenuProvider({ children }: PropsWithChildren) {
+export function ShowingComponentProvider({ children }: PropsWithChildren) {
 	const [data, setData] = useState(initialData);
 	const changeOverflowBody = (componentId: componentIdType) => {
 		const bodyElement = document.body;
