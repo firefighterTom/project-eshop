@@ -12,8 +12,6 @@ const imgages = [
 ];
 
 export default function SliderHeader() {
-	
-
 	return (
 		<>
 			<Swiper
@@ -27,7 +25,7 @@ export default function SliderHeader() {
 				{imgages.map((photo) => {
 					return (
 						<SwiperSlide key={photo.name}>
-							<div className=' relative h-[60vh] lg:h-[70vh] '>
+							<div className=' relative h-[60vh] lg:h-[70vh] max-h-[30rem] '>
 								<Image
 									priority={true}
 									src={photo.src}
