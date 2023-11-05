@@ -1,9 +1,8 @@
 import { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 
-import { useAddNotificationContext } from './addNotification';
-
 import { addProductToCart, validationLocalStorage } from './utilsCartContext';
+import { useShowingComponentContext } from './showingComponent';
 type itemsCartType = {
 	name: string;
 	id: string;
@@ -21,7 +20,7 @@ type addedProduct = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
-	const addNotificationContext = useAddNotificationContext();
+	const context = useShowingComponentContext();
 
 	const [items, setItems] = useState<itemsCartType>([]);
 	useEffect(() => {
@@ -37,8 +36,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 	}, [items]);
 
 	const addToCart = (element: addedProduct) => {
-		addNotificationContext?.showNotification();
-		addNotificationContext?.closeOnTimeNotification();
+		context.openComponent('addedToCartNotificationComponent');
 		const chosenProduct = addProductToCart(element, items);
 		if (chosenProduct) setItems(chosenProduct);
 	};

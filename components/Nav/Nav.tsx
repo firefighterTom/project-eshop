@@ -1,17 +1,20 @@
 import Link from 'next/link';
-import IconShoppingCart from './assets/icon-shoppingCart.svg';
-import IconSearch from './assets/icon-search.svg';
+import IconShoppingCart from '../../assets/icon-shoppingCart.svg';
+import IconSearch from '../../assets/icon-search.svg';
 import { Search } from 'components/Search/Search';
 import { PanelMenu } from './PanelMenu';
-import { useShowingPanelMenuContext } from 'context/showingPanelMenu';
-import IconOpenMenuBar from './assets/icon-openMenuBar.svg';
+import { useShowingComponentContext } from 'context/showingComponent';
+import IconOpenMenuBar from '../../assets/icon-open.svg';
+import { Notification } from 'components/Notification/Notification';
 
 export function Nav() {
-	const { isOpen, openPanelMenu } = useShowingPanelMenuContext();
+	const context = useShowingComponentContext();
 	return (
 		<div className='relative flex justify-between px-5 py-5 bg-white text-black '>
-			{!isOpen && <PanelMenu />}
-			<button onClick={openPanelMenu}>
+			{context.panelMenuComponent.isOpen && <PanelMenu />}
+			{context.addedToCartNotificationComponent.isOpen && <Notification />}
+
+			<button onClick={()=>context.openComponent('panelMenuComponent')}>
 				<IconOpenMenuBar />
 			</button>
 			<Link
@@ -20,24 +23,29 @@ export function Nav() {
 				E-shop
 			</Link>
 			<div className='flex items-center gap-4 sm:gap-6'>
-				<form action='#' className='hidden lg:flex'>
+				<form
+					action='#'
+					className='hidden lg:flex'
+					onClick={()=>context.openComponent('searchComponent')}>
 					<input
 						type='text'
 						placeholder='Search product'
 						className='focus:outline-none'
 					/>
-					<Link href={'/'}>
-						<IconSearch />
-					</Link>
+
+					<IconSearch className='cursor-pointer' />
 				</form>
-				<Link href={'/'} className='block lg:hidden'>
-					<IconSearch />
-				</Link>
+
+				<IconSearch
+					className='block lg:hidden cursor-pointer'
+					onClick={()=>context.openComponent('searchComponent')}
+				/>
+
 				<Link href={'/cart'}>
 					<IconShoppingCart />
 				</Link>
 			</div>
-			{/* <Search></Search> */}
+			{context.searchComponent.isOpen && <Search />}
 		</div>
 	);
 }
