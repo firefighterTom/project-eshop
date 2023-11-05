@@ -1,13 +1,10 @@
-import { Notification } from 'components/Notification/Notification';
 import { Reviews } from 'components/Reviews/Reviews';
-import { useAddNotificationContext } from 'context/addNotification';
 import { useCartContext } from 'context/cart';
 import { useGetProductBySlugQuery } from 'generated/graphql';
 import { useRouter } from 'next/router';
 
 export default function ProductPage() {
 	const { addToCart } = useCartContext();
-	const addNotificationContext = useAddNotificationContext();
 	const router = useRouter();
 	const productName = Array.isArray(router.query.products_name)
 		? router.query.products_name[0]
@@ -17,12 +14,11 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data) return <h2>Problem with fetching</h2>;
-	console.log(data);
 	return (
 		<>
-			{/* {addNotificationContext?.isOpen && <Notification />} */}
+			
 
-			<pre>{JSON.stringify(data, null, 2)}</pre>
+			<pre>{data.product?.name}</pre>
 			<ul>
 				{data.reviews.map((rev) => {
 					return (
