@@ -21,7 +21,6 @@ export function Registration() {
 			},
 			body: JSON.stringify(registrationData),
 		});
-		console.log(await response.json());
 	};
 
 	return (
