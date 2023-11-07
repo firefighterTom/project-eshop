@@ -16,6 +16,7 @@ type CartContextType = {
 type addedProduct = {
 	name: string;
 	id: string;
+	amount:number
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
