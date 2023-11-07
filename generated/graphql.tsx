@@ -2937,6 +2937,48 @@ export type DocumentVersion = {
   stage: Stage;
 };
 
+/** An object with an ID */
+export type Entity = {
+  /** The id of the object. */
+  id: Scalars['ID'];
+  /** The Stage of an object */
+  stage: Stage;
+};
+
+/** This enumeration holds all typenames that implement the Entity interface. Components implement the Entity interface. At the moment models are not supported, models are listed in this enum to avoid an empty enum without any components. */
+export enum EntityTypeName {
+  Account = 'Account',
+  /** Asset system model */
+  Asset = 'Asset',
+  /** Category of products, e.g. Menswear. */
+  Category = 'Category',
+  /** Collection of products, e.g. Winter Sale. */
+  Collection = 'Collection',
+  Currency = 'Currency',
+  Order = 'Order',
+  OrderItem = 'OrderItem',
+  Product = 'Product',
+  ProductColorVariant = 'ProductColorVariant',
+  ProductSizeColorVariant = 'ProductSizeColorVariant',
+  ProductSizeVariant = 'ProductSizeVariant',
+  Review = 'Review',
+  /** Scheduled Operation system model */
+  ScheduledOperation = 'ScheduledOperation',
+  /** Scheduled Release system model */
+  ScheduledRelease = 'ScheduledRelease',
+  /** User system model */
+  User = 'User'
+}
+
+/** Allows to specify input to query components directly */
+export type EntityWhereInput = {
+  /** The ID of an object */
+  id: Scalars['ID'];
+  stage: Stage;
+  /** The Type name of an object */
+  typename: EntityTypeName;
+};
+
 export enum ImageFit {
   /** Resizes the image to fit within the specified parameters without distorting, cropping, or changing the aspect ratio. */
   Clip = 'clip',
@@ -5124,6 +5166,7 @@ export type Order = Node & {
   createdAt: Scalars['DateTime'];
   /** User that created this document */
   createdBy?: Maybe<User>;
+  currentStatus: OrderStatus;
   /** Get the document in other stages */
   documentInStages: Array<Order>;
   email: Scalars['String'];
@@ -5223,6 +5266,7 @@ export type OrderConnection = {
 
 export type OrderCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  currentStatus: OrderStatus;
   email: Scalars['String'];
   orderItems?: InputMaybe<OrderItemCreateManyInlineInput>;
   stripeCheckoutId: Scalars['String'];
@@ -5759,6 +5803,13 @@ export type OrderManyWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  currentStatus?: InputMaybe<OrderStatus>;
+  /** All values that are contained in given list. */
+  currentStatus_in?: InputMaybe<Array<InputMaybe<OrderStatus>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  currentStatus_not?: InputMaybe<OrderStatus>;
+  /** All values that are not contained in given list. */
+  currentStatus_not_in?: InputMaybe<Array<InputMaybe<OrderStatus>>>;
   documentInStages_every?: InputMaybe<OrderWhereStageInput>;
   documentInStages_none?: InputMaybe<OrderWhereStageInput>;
   documentInStages_some?: InputMaybe<OrderWhereStageInput>;
@@ -5877,6 +5928,8 @@ export type OrderManyWhereInput = {
 export enum OrderOrderByInput {
   CreatedAtAsc = 'createdAt_ASC',
   CreatedAtDesc = 'createdAt_DESC',
+  CurrentStatusAsc = 'currentStatus_ASC',
+  CurrentStatusDesc = 'currentStatus_DESC',
   EmailAsc = 'email_ASC',
   EmailDesc = 'email_DESC',
   IdAsc = 'id_ASC',
@@ -5891,7 +5944,17 @@ export enum OrderOrderByInput {
   UpdatedAtDesc = 'updatedAt_DESC'
 }
 
+export enum OrderStatus {
+  Canceled = 'CANCELED',
+  InProgress = 'IN_PROGRESS',
+  New = 'NEW',
+  Paid = 'PAID',
+  Recived = 'RECIVED',
+  Send = 'SEND'
+}
+
 export type OrderUpdateInput = {
+  currentStatus?: InputMaybe<OrderStatus>;
   email?: InputMaybe<Scalars['String']>;
   orderItems?: InputMaybe<OrderItemUpdateManyInlineInput>;
   stripeCheckoutId?: InputMaybe<Scalars['String']>;
@@ -5916,6 +5979,7 @@ export type OrderUpdateManyInlineInput = {
 };
 
 export type OrderUpdateManyInput = {
+  currentStatus?: InputMaybe<OrderStatus>;
   email?: InputMaybe<Scalars['String']>;
   stripeCheckoutId?: InputMaybe<Scalars['String']>;
   total?: InputMaybe<Scalars['Int']>;
@@ -5996,6 +6060,13 @@ export type OrderWhereInput = {
   /** All values that are not contained in given list. */
   createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
   createdBy?: InputMaybe<UserWhereInput>;
+  currentStatus?: InputMaybe<OrderStatus>;
+  /** All values that are contained in given list. */
+  currentStatus_in?: InputMaybe<Array<InputMaybe<OrderStatus>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  currentStatus_not?: InputMaybe<OrderStatus>;
+  /** All values that are not contained in given list. */
+  currentStatus_not_in?: InputMaybe<Array<InputMaybe<OrderStatus>>>;
   documentInStages_every?: InputMaybe<OrderWhereStageInput>;
   documentInStages_none?: InputMaybe<OrderWhereStageInput>;
   documentInStages_some?: InputMaybe<OrderWhereStageInput>;
@@ -8653,6 +8724,8 @@ export type Query = {
   /** Retrieve document version */
   currencyVersion?: Maybe<DocumentVersion>;
   /** Fetches an object given its ID */
+  entities?: Maybe<Array<Entity>>;
+  /** Fetches an object given its ID */
   node?: Maybe<Node>;
   /** Retrieve a single order */
   order?: Maybe<Order>;
@@ -8918,6 +8991,11 @@ export type QueryCurrencyArgs = {
 
 export type QueryCurrencyVersionArgs = {
   where: VersionWhereInput;
+};
+
+
+export type QueryEntitiesArgs = {
+  where: Array<EntityWhereInput>;
 };
 
 
@@ -11458,18 +11536,6 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetProductBySlugQueryVariables = Exact<{
-  slug: Scalars['String'];
-}>;
-
-
-export type GetProductBySlugQuery = { __typename?: 'Query', product?: { __typename?: 'Product', name: string, price: number, id: string, images: Array<{ __typename?: 'Asset', id: string, url: string }> } | null, reviews: Array<{ __typename?: 'Review', id: string, name: string, content: string, rating?: number | null }> };
-
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, images: Array<{ __typename?: 'Asset', url: string }> }> };
-
 export type MyMutationMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -11477,6 +11543,18 @@ export type MyMutationMutationVariables = Exact<{
 
 
 export type MyMutationMutation = { __typename?: 'Mutation', createAccount?: { __typename?: 'Account', email: string, password: string, id: string } | null };
+
+export type GetProductBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetProductBySlugQuery = { __typename?: 'Query', product?: { __typename?: 'Product', name: string, price: number, id: string, description: string, images: Array<{ __typename?: 'Asset', id: string, url: string }> } | null, reviews: Array<{ __typename?: 'Review', id: string, name: string, content: string, rating?: number | null }> };
+
+export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, images: Array<{ __typename?: 'Asset', url: string }> }> };
 
 export type GetAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
@@ -11486,6 +11564,42 @@ export type GetAccountByEmailQueryVariables = Exact<{
 export type GetAccountByEmailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, email: string, password: string } | null };
 
 
+export const MyMutationDocument = gql`
+    mutation MyMutation($email: String!, $password: String!) {
+  createAccount(data: {email: $email, password: $password}) {
+    email
+    password
+    id
+  }
+}
+    `;
+export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, MyMutationMutationVariables>;
+
+/**
+ * __useMyMutationMutation__
+ *
+ * To run a mutation, you first call `useMyMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMyMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [myMutationMutation, { data, loading, error }] = useMyMutationMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useMyMutationMutation(baseOptions?: Apollo.MutationHookOptions<MyMutationMutation, MyMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MyMutationMutation, MyMutationMutationVariables>(MyMutationDocument, options);
+      }
+export type MyMutationMutationHookResult = ReturnType<typeof useMyMutationMutation>;
+export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
+export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
 export const GetProductBySlugDocument = gql`
     query GetProductBySlug($slug: String!) {
   product(where: {slug: $slug}) {
@@ -11496,6 +11610,7 @@ export const GetProductBySlugDocument = gql`
       id
       url
     }
+    description
   }
   reviews {
     id
@@ -11573,42 +11688,6 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
-export const MyMutationDocument = gql`
-    mutation MyMutation($email: String!, $password: String!) {
-  createAccount(data: {email: $email, password: $password}) {
-    email
-    password
-    id
-  }
-}
-    `;
-export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, MyMutationMutationVariables>;
-
-/**
- * __useMyMutationMutation__
- *
- * To run a mutation, you first call `useMyMutationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMyMutationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [myMutationMutation, { data, loading, error }] = useMyMutationMutation({
- *   variables: {
- *      email: // value for 'email'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useMyMutationMutation(baseOptions?: Apollo.MutationHookOptions<MyMutationMutation, MyMutationMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MyMutationMutation, MyMutationMutationVariables>(MyMutationDocument, options);
-      }
-export type MyMutationMutationHookResult = ReturnType<typeof useMyMutationMutation>;
-export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
-export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
 export const GetAccountByEmailDocument = gql`
     query GetAccountByEmail($email: String!) {
   account(where: {email: $email}, stage: DRAFT) {
