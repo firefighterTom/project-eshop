@@ -4,8 +4,15 @@ import * as yup from 'yup';
 import { loginSchema } from '../../schema/schemaRegister';
 import { Input } from './Input';
 import { signIn } from 'next-auth/react';
-// I'll changed the type any and props if the context idea turn out to be good
-export function Login(props:any) {
+// I will changed the type any and props if the context idea turn out to be good
+
+
+type PropsType={
+	isOpen:boolean,
+	setIsOpen:(isOpen:boolean)=>void
+
+}
+export function Login(props:PropsType) {
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
 		register,
@@ -38,7 +45,7 @@ export function Login(props:any) {
 				<button className='bg-black text-white text-sm py-1 font-bold uppercase  mt-4 mb-2 '>
 					Login
 				</button>
-				<p className='text-xs text-center text-blue-500'>Don't have an account? <span className='cursor-pointer' onClick={()=>props.setIsOpen(!props.isOpen)}>Sign up</span></p>
+				<p className='text-xs text-center text-blue-500'>{`Don't have an account?`} <span className='cursor-pointer' onClick={()=>props.setIsOpen(!props.isOpen)}>Sign up</span></p>
 			</form>
 		</div>
 	);
