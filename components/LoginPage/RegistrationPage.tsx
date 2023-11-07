@@ -24,7 +24,7 @@ export function Registration(props:any) {
 	};
 
 	return (
-		<div className='absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4  w-[20%] min-w-[15rem]  bg-white py-4 m-auto  mb-3 px-4'>
+		<div className='w-[20%] min-w-[15rem]  bg-white py-4   mb-3 px-4'>
 			<h2 className='text-center mb-4 font-bold uppercase'>
 				Create new account
 			</h2>
