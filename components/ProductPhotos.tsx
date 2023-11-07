@@ -40,6 +40,7 @@ export function Photos(props:PhotosProps ) {
 					const sliderIndex = index + 1;
 					return (
 						<Image
+							key={index}
 							src={image}
 							width={60}
 							height={60}
