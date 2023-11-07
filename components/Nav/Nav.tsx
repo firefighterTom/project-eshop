@@ -12,9 +12,8 @@ export function Nav() {
 	return (
 		<div className='relative flex justify-between px-5 py-5 bg-white text-black '>
 			{context.panelMenuComponent.isOpen && <PanelMenu />}
-			{context.addedToCartNotificationComponent.isOpen && <Notification />}
 
-			<button onClick={()=>context.openComponent('panelMenuComponent')}>
+			<button onClick={() => context.openComponent('panelMenuComponent')}>
 				<IconOpenMenuBar />
 			</button>
 			<Link
@@ -26,7 +25,7 @@ export function Nav() {
 				<form
 					action='#'
 					className='hidden lg:flex'
-					onClick={()=>context.openComponent('searchComponent')}>
+					onClick={() => context.openComponent('searchComponent')}>
 					<input
 						type='text'
 						placeholder='Search product'
@@ -38,7 +37,7 @@ export function Nav() {
 
 				<IconSearch
 					className='block lg:hidden cursor-pointer'
-					onClick={()=>context.openComponent('searchComponent')}
+					onClick={() => context.openComponent('searchComponent')}
 				/>
 
 				<Link href={'/cart'}>
