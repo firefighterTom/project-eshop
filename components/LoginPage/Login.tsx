@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { loginSchema } from '../../schema/schemaRegister';
-import  {Input}  from './Input';
+import { Input } from './Input';
 import { signIn } from 'next-auth/react';
-
-export function Login() {
+// I'll changed the type any and props if the context idea turn out to be good
+export function Login(props:any) {
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
 		register,
@@ -16,12 +16,12 @@ export function Login() {
 	});
 
 	return (
-		<div className='w-4/6  bg-orange-300 py-4 m-auto rounded-2xl mb-3'>
+		<div className='absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4  w-[20%] min-w-[15rem]  bg-white py-4 m-auto  mb-3 px-4'>
 			<h2 className='text-center mb-4 font-bold uppercase'>Log in</h2>
 			<form
-				className='flex flex-col justify-center items-center'
+				className='flex flex-col justify-center '
 				onSubmit={handleSubmit((data: FormData) => {
-					signIn("credentials",data)
+					signIn('credentials', data);
 				})}>
 				<Input
 					{...register('email')}
@@ -35,9 +35,10 @@ export function Login() {
 					type={'password'}
 					error={errors.password?.message}
 				/>
-				<button className='bg-black text-white py-1 px-2 rounded-md mt-2'>
+				<button className='bg-black text-white text-sm py-1 font-bold uppercase  mt-4 mb-2 '>
 					Login
 				</button>
+				<p className='text-xs text-center text-blue-500'>Don't have an account? <span className='cursor-pointer' onClick={()=>props.setIsOpen(!props.isOpen)}>Sign up</span></p>
 			</form>
 		</div>
 	);

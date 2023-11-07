@@ -9,15 +9,16 @@ interface Props {
 export const Input = forwardRef<HTMLInputElement, Props>((props, ref) => {
 	return (
 		<>
-			<label className='mb-1 flex flex-col text-center'>
-				{props.inputname}
+			<label className='mb-1 flex flex-col text-center '>
 				<input
 					ref={ref}
 					{...props}
 					type={props.type}
-					className='border-2 border-black rounded-md px-2'/>
+					placeholder={props.inputname}
+					className=' w-full px-2 bg-transparent placeholder-gray-500 border-black  border-b-2'
+				/>
 			</label>
-			<p className='h-4 text-red-700 text-xs'>{props.error}</p>
+			<p className='h-4 text-red-700 text-xs text-center'>{props.error}</p>
 		</>
 	);
 });
