@@ -1,0 +1,7 @@
+mutation MyMutation($email: String!, $password: String!) {
+	createAccount(data: { email: $email, password: $password }) {
+		email
+		password
+		id
+	}
+}
