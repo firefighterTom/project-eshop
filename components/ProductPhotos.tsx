@@ -4,13 +4,13 @@ import { ProductPhotosSlider } from './ProductPhotosSlider';
 
 
 type PhotosProps={
-	img:string,
+	images:{url:string}[],
 	name:string
 }
 
 export function Photos(props:PhotosProps ) {
-	//Temporarily, until I add other photos
-	const images = [props.img, props.img, props.img];
+
+	const images = props.images;
 	const [showSlider, setShowSlider] = useState(false);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	// I'll change it to context like in other cases if it turns out it was a good idea.
@@ -27,7 +27,7 @@ export function Photos(props:PhotosProps ) {
 	return (
 		<>
 			<Image
-				src={props.img}
+				src={props.images[0].url}
 				width={0}
 				height={0}
 				sizes='100vw'
@@ -41,7 +41,7 @@ export function Photos(props:PhotosProps ) {
 					return (
 						<Image
 							key={index}
-							src={image}
+							src={image.url}
 							width={60}
 							height={60}
 							className=' cursor-pointer'

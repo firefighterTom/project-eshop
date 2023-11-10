@@ -6,7 +6,7 @@ import { Pagination } from 'swiper';
 import IconClose from '../assets/icon-close.svg';
 
 type ProductPhotosSliderProps = {
-	images: string[];
+	images:{url:string}[],
 	initialSlide: number;
 	onClose: () => void;
 };
@@ -27,7 +27,7 @@ export function ProductPhotosSlider({
 					{images.map((image, index) => (
 						<SwiperSlide key={index}>
 							<Image
-								src={image}
+								src={image.url}
 								fill
 								className=' object-contain'
 								alt={`Image ${index}`}
