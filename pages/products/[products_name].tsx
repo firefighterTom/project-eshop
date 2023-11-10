@@ -23,7 +23,7 @@ export default function ProductPage() {
 		<div className='flex flex-col items-center mt-5'>
 			<div className='max-w-[1000px] '>
 				<div className=' w-full grid grid-cols-3 sm:grid-cols-2  '>
-					<Photos name={data.product.name} img={data.product.images[0].url} />
+					<Photos name={data.product.name} images={data.product.images} />
 					<h2 className='col-span-full justify-self-center sm:row-start-1 sm:col-start-2 sm:justify-self-start uppercase font-bold mt-4 text-xl'>
 						{data.product.name}
 					</h2>
