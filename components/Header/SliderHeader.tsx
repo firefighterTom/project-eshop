@@ -1,14 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ShoesImg from '../../images/shoesImg.jpg';
-import BikeImg from '../../images/bikeImg.jpg';
-import TennisImg from '../../images/tennisImg.jpg';
 import { Autoplay } from 'swiper';
 import Image from 'next/image';
 
-const imgages = [
-	{ src: ShoesImg, name: 'ShoesImg', alt: 'Basketball shoes' },
-	{ src: BikeImg, name: 'BikeImg', alt: 'Stationary bikes' },
-	{ src: TennisImg, name: 'TennisImg', alt: 'Tennis racket' },
+const images = [
+	{  name: 'shoesImg', alt: 'Basketball shoes' },
+	{  name: 'bikeImg', alt: 'Stationary bikes' },
+	{  name: 'tennisImg', alt: 'Tennis racket' },
 ];
 
 export default function SliderHeader() {
@@ -22,13 +19,13 @@ export default function SliderHeader() {
 				loop={true}
 				modules={[Autoplay]}
 				className='mySwiper'>
-				{imgages.map((photo) => {
+				{images.map((photo) => {
 					return (
 						<SwiperSlide key={photo.name}>
-							<div className=' relative h-[60vh] lg:h-[70vh] max-h-[30rem] '>
+							<div className='relative h-[60vh] lg:h-[70vh] max-h-[30rem] '>
 								<Image
 									priority={true}
-									src={photo.src}
+									src={`/${photo.name}.jpg`}
 									fill
 									className='object-cover '
 									alt={photo.alt}
