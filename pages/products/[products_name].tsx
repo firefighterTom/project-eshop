@@ -6,10 +6,13 @@ import IconPlus from '../../assets/icon-plus.svg';
 import { SelectAndDisplay } from 'components/SelectAndDisplay';
 import { Photos } from 'components/ProductPhotos';
 import { useState } from 'react';
+import { Stars } from 'components/Reviews/Stars';
+import { averageReviewScore } from 'utilities/avarageReviewScore';
 
 export default function ProductPage() {
 	const { addToCart } = useCartContext();
 	const [amountOfProducts, setAmountOfProducts] = useState(1);
+
 	const router = useRouter();
 	const productName = Array.isArray(router.query.products_name)
 		? router.query.products_name[0]
@@ -19,6 +22,10 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data?.product) return <h2>Problem with fetching</h2>;
+	const avarageReviewsScore = data.reviews.length
+		? averageReviewScore(data.reviews)
+		: 0;
+		console.log(avarageReviewsScore)
 	return (
 		<div className='flex flex-col items-center mt-5'>
 			<div className='max-w-[1000px] '>
@@ -33,9 +40,9 @@ export default function ProductPage() {
 							currency: 'PLN',
 						}).format(data.product.price)}
 					</p>
-					<p className=' col-span-full sm:row-start-3 sm:col-start-2 sm:justify-self-start justify-self-center '>
-						@@@@@
-					</p>
+					<div className=' col-span-full sm:row-start-3 sm:col-start-2 sm:justify-self-start justify-self-center '>
+						<Stars rating={avarageReviewsScore}/>
+					</div>
 					<p className='px-4 xs:px-6 sm:px-0 col-span-full text-center sm:row-start-4 sm:col-start-2 sm:text-left sm:max-w-[30rem]'>
 						{data.product.description}
 					</p>
