@@ -11554,15 +11554,7 @@ export type GetProductBySlugQuery = { __typename?: 'Query', product?: { __typena
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, images: Array<{ __typename?: 'Asset', url: string }> }> };
-
-export type MyMutationMutationVariables = Exact<{
-  email: Scalars['String'];
-  password: Scalars['String'];
-}>;
-
-
-export type MyMutationMutation = { __typename?: 'Mutation', createAccount?: { __typename?: 'Account', email: string, password: string, id: string } | null };
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, description: string, images: Array<{ __typename?: 'Asset', url: string }>, reviews: Array<{ __typename?: 'Review', rating?: number | null }> }> };
 
 export type GetAccountByEmailQueryVariables = Exact<{
   email: Scalars['String'];
