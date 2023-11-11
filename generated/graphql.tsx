@@ -9690,6 +9690,7 @@ export type ReviewManyWhereInput = {
   /** All values less than or equal the given value. */
   updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
   /** Any other value that exists and is not equal to the given value. */
+  /** Any other value that exists and is not equal to the given value. */
   updatedAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
   updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
@@ -11554,52 +11555,9 @@ export type GetProductBySlugQuery = { __typename?: 'Query', product?: { __typena
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, description: string, images: Array<{ __typename?: 'Asset', url: string }>, reviews: Array<{ __typename?: 'Review', rating?: number | null }> }> };
-
-export type GetAccountByEmailQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string }> };
 
 
-export type GetAccountByEmailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, email: string, password: string } | null };
-
-
-export const MyMutationDocument = gql`
-    mutation MyMutation($email: String!, $password: String!) {
-  createAccount(data: {email: $email, password: $password}) {
-    email
-    password
-    id
-  }
-}
-    `;
-export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, MyMutationMutationVariables>;
-
-/**
- * __useMyMutationMutation__
- *
- * To run a mutation, you first call `useMyMutationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMyMutationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [myMutationMutation, { data, loading, error }] = useMyMutationMutation({
- *   variables: {
- *      email: // value for 'email'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useMyMutationMutation(baseOptions?: Apollo.MutationHookOptions<MyMutationMutation, MyMutationMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MyMutationMutation, MyMutationMutationVariables>(MyMutationDocument, options);
-      }
-export type MyMutationMutationHookResult = ReturnType<typeof useMyMutationMutation>;
-export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
-export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
 export const GetProductBySlugDocument = gql`
     query GetProductBySlug($slug: String!) {
   product(where: {slug: $slug}) {
@@ -11692,6 +11650,85 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export const GetProductsToPaymentDocument = gql`
+    query GetProductsToPayment($productsId: [ID!]!) {
+  products(where: {id_in: $productsId}) {
+    id
+    name
+    price
+    images {
+      id
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProductsToPaymentQuery__
+ *
+ * To run a query within a React component, call `useGetProductsToPaymentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsToPaymentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductsToPaymentQuery({
+ *   variables: {
+ *      productsId: // value for 'productsId'
+ *   },
+ * });
+ */
+export function useGetProductsToPaymentQuery(baseOptions: Apollo.QueryHookOptions<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>(GetProductsToPaymentDocument, options);
+      }
+export function useGetProductsToPaymentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>(GetProductsToPaymentDocument, options);
+        }
+export type GetProductsToPaymentQueryHookResult = ReturnType<typeof useGetProductsToPaymentQuery>;
+export type GetProductsToPaymentLazyQueryHookResult = ReturnType<typeof useGetProductsToPaymentLazyQuery>;
+export type GetProductsToPaymentQueryResult = Apollo.QueryResult<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>;
+export const CreateOrderDocument = gql`
+    mutation CreateOrder($email: String!, $totalOrder: Int!, $stripeCheckoutId: String!, $orderItems: [OrderItemCreateInput!]!) {
+  createOrder(
+    data: {email: $email, total: $totalOrder, stripeCheckoutId: $stripeCheckoutId, orderItems: {create: $orderItems}, currentStatus: NEW}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      totalOrder: // value for 'totalOrder'
+ *      stripeCheckoutId: // value for 'stripeCheckoutId'
+ *      orderItems: // value for 'orderItems'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
 export const GetAccountByEmailDocument = gql`
     query GetAccountByEmail($email: String!) {
   account(where: {email: $email}, stage: DRAFT) {

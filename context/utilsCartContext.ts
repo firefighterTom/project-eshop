@@ -4,12 +4,14 @@ import { schemaProductCart, SchemaProductCart } from './schemaProductCart';
 type addedProduct = {
 	name: string;
 	id: string;
+	price:number;
 	amount:number
 };
-type itemsCartType = {
+export type itemsCartType = {
 	name: string;
 	id: string;
 	amount: number;
+	price:number;
 }[];
 
 export const addProductToCart = (
@@ -18,7 +20,8 @@ export const addProductToCart = (
 ) => {
 	const exist = items.find((product) => product.name === element.name);
 	if (!exist) {
-		return [...items, { name: element.name, id: element.id, amount: element.amount }];
+		return [...items, { name: element.name, id: element.id, amount: element.amount,price:element.price  }];
+		
 	}
 	const actualCart = items.map((el) =>
 		el.id === exist?.id ? { ...exist, amount: exist?.amount + element.amount } : el
