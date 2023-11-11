@@ -8,6 +8,8 @@ const stripePromise = loadStripe(
 	getEnv(process.env.NEXT_PUBLIC_STRIPE_API_KEY)
 );
 
+
+
 export default function Cart() {
 	const { items } = useCartContext();
 
@@ -22,7 +24,7 @@ export default function Cart() {
 			session: Stripe.Response<Stripe.Checkout.Session>;
 		};
 		console.log(session);
-		// stripe?.redirectToCheckout({ sessionId: session.id });
+		stripe?.redirectToCheckout({ sessionId: session.id });
 	};
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
