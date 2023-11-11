@@ -9,18 +9,19 @@ export function Stars(props: RatingProp) {
 			{[1, 2, 3, 4, 5].map((el) => {
 				if (props.rating)
 					return (
-						<li>
-							{props.rating > el ? (
-								<Star
-									key={el}
-									className='fill-gold stroke-gold w-5 h-5'
-								/>
+						<li key={el}>
+							{props.rating >= el ? (
+								<Star className='fill-gold stroke-gold w-5 h-5' />
 							) : (
-								<Star key={el} className='stroke-black w-5 h-5' />
+								<Star className='stroke-black w-5 h-5' />
 							)}
 						</li>
 					);
-				return <Star key={el} className=' stroke-black w-5 h-5' />;
+				return (
+					<li key={el}>
+						<Star className=' stroke-black w-5 h-5' />
+					</li>
+				);
 			})}
 		</ul>
 	);
