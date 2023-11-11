@@ -5,10 +5,8 @@ import Stripe from 'stripe';
 import { getEnv } from 'utilities/getEnv';
 
 const stripePromise = loadStripe(
-	getEnv(process.env.NEXT_PUBLIC_STRIPE_API_KEY)
+	`${process.env.NEXT_PUBLIC_STRIPE_API_KEY}`
 );
-
-
 
 export default function Cart() {
 	const { items } = useCartContext();
