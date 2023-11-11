@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Eye from './../assets/eye.svg';
-import { useCartContext } from 'context/contextCart';
+import { useCartContext } from 'context/cart';
 
 type linkToProductType = {
 	name: string;
@@ -13,6 +13,7 @@ export function ProductHover(props: linkToProductType) {
 	const product = {
 		name: props.name,
 		id: props.id,
+		amount:1
 	};
 	return (
 		<div className='absolute flex flex-col justify-center items-center w-9/12 h-full bg-quartz-gray/90 gap-3 animate-opacity '>
