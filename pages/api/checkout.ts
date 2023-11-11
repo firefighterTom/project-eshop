@@ -71,6 +71,7 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 	const session = await stripe.checkout.sessions.create({
 		mode: 'payment',
 		locale: 'pl',
+		customer_email:'a@example.com',
 		payment_method_types: ['blik', 'p24', 'card'],
 		success_url: 'http://localhost:3000/success.html',
 		cancel_url: 'http://localhost:3000/cancel.html',
