@@ -13,7 +13,7 @@ type ProductsProps = {
 export function Slider(props: ProductsProps) {
 	const swiperRef = useRef<SwiperClass>();
 	return (
-		<>
+		<div className='max-w-screen-2xl mx-auto'>
 			<h2 className='mb-4 text-center  text-xl md:text-2xl uppercase font-bold '>
 				Our Collection
 			</h2>
@@ -74,6 +74,6 @@ export function Slider(props: ProductsProps) {
 					<ArrowRight className='w-8 h-8 ' />
 				</div>
 			</Swiper>
-		</>
+		</div>
 	);
 }
