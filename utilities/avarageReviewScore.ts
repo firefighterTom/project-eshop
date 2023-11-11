@@ -4,9 +4,9 @@ type ReviewsType={
 }[]
 
 export const averageReviewScore=(reviews:ReviewsType)=>{
-const result= reviews.reduce((sum, currentValue) => {
+const result= Math.round(reviews.reduce((sum, currentValue) => {
 				if (currentValue.rating === null || !currentValue.rating) return sum;
 				return currentValue.rating + sum;
-		  }, 0) / reviews.length
+		  }, 0) / reviews.length)
           return result
 }
