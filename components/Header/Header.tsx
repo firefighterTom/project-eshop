@@ -4,7 +4,7 @@ import SliderHeader from './SliderHeader';
 
 export function Header() {
 	return (
-		<div className='relative z-0'>
+		<div className='relative z-0 mb-10'>
 			<div>
 				<div className='absolute w-full h-full z-20 flex flex-col justify-center items-center text-white '>
 					<h1 className='uppercase font-gabarito text-2xl sm:text-3xl lg:text-4xl mb-5'>
