@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
+import { Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 
 const images = [
-	{  name: 'shoesImg', alt: 'Basketball shoes' },
-	{  name: 'bikeImg', alt: 'Stationary bikes' },
-	{  name: 'tennisImg', alt: 'Tennis racket' },
+	{ name: 'shoesImg', alt: 'Basketball shoes' },
+	{ name: 'bikeImg', alt: 'Stationary bikes' },
+	{ name: 'tennisImg', alt: 'Tennis racket' },
 ];
 
 export default function SliderHeader() {
