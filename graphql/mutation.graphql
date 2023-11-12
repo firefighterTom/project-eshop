@@ -1,7 +1,27 @@
-mutation MyMutation($email: String!, $password: String!) {
-	createAccount(data: { email: $email, password: $password }) {
-		email
-		password
+mutation CreateAccount($name:String!,$email:String!, $password:String!){
+  createAccount(data:{name:$name,email:$email, password:$password}){
+    name
+    email
+    password
+    id
+  }
+}
+
+mutation CreateOrder(
+	$email: String!
+	$totalOrder: Int!
+	$stripeCheckoutId: String!
+	$orderItems: [OrderItemCreateInput!]!
+) {
+	createOrder(
+		data: {
+			email: $email
+			total: $totalOrder
+			stripeCheckoutId: $stripeCheckoutId
+			orderItems: { create: $orderItems }
+			currentStatus: NEW
+		}
+	) {
 		id
 	}
 }
