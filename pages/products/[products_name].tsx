@@ -21,9 +21,11 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data?.product) return <h2>Problem with fetching</h2>;
-	const avarageReviewsScore = data.reviews.length
-		? averageReviewScore(data.reviews)
+	const avarageReviewsScore = data.product.reviews.length
+		? averageReviewScore(data.product.reviews)
 		: 0;
+
+		
 	return (
 		<div className='flex flex-col items-center mt-5'>
 			<div className='max-w-[1000px] '>
@@ -86,7 +88,7 @@ export default function ProductPage() {
 				</div>
 				<SelectAndDisplay
 					description={data.product.description}
-					productReviews={data.reviews}
+					productReviews={data.product.reviews}
 				/>
 			</div>
 		</div>
