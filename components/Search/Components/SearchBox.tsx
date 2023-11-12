@@ -27,12 +27,12 @@ function SearchBox({ refine }: SearchBoxProvided) {
 					<input
 						type='text'
 						ref={inputRef}
-						className='p-2 w-[90%] border-b-2 border-black border-solid'
+						className='p-2 w-[90%] border-b-2 border-black border-solid '
 						placeholder='Search product...'
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 					<IconClose
-						className='w-[40px] h-[40px] pointer'
+						className='w-10 h-10 cursor-pointer'
 						onClick={() => context.closeComponent('searchComponent')}
 					/>
 				</label>
