@@ -4,15 +4,10 @@ import * as yup from 'yup';
 import { loginSchema } from '../../schema/schemaRegister';
 import { Input } from './Input';
 import { signIn } from 'next-auth/react';
-// I will changed the type any and props if the context idea turn out to be good
+import { useShowingComponentContext } from 'context/showingComponent';
 
-
-type PropsType={
-	isOpen:boolean,
-	setIsOpen:(isOpen:boolean)=>void
-
-}
-export function Login(props:PropsType) {
+export function Login() {
+	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
 		register,
@@ -23,7 +18,7 @@ export function Login(props:PropsType) {
 	});
 
 	return (
-		<div className='w-[20%] min-w-[15rem]  bg-white py-4   mb-3 px-4'>
+		<div className='w-[20%] min-w-[15rem]  bg-white py-4 mb-3 px-4'>
 			<h2 className='text-center mb-4 font-bold uppercase'>Log in</h2>
 			<form
 				className='flex flex-col justify-center '
@@ -45,7 +40,18 @@ export function Login(props:PropsType) {
 				<button className='bg-black text-white text-sm py-1 font-bold uppercase  mt-4 mb-2 '>
 					Login
 				</button>
-				<p className='text-xs text-center text-blue-500'>{`Don't have an account?`} <span className='cursor-pointer' onClick={()=>props.setIsOpen(!props.isOpen)}>Sign up</span></p>
+				<p className='text-xs text-center'>
+					{`Don't have an account?`}
+					<span
+						className=' text-blue-500 cursor-pointer'
+						onClick={() =>
+							context.openComponent(
+								'switchBetweenLoginAndRegistrationComponents'
+							)
+						}>
+						Sign up
+					</span>
+				</p>
 			</form>
 		</div>
 	);
