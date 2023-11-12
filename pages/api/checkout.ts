@@ -19,6 +19,11 @@ type SecuredProduct = {
 	images: string[];
 };
 
+type itemsWithEmail = {
+	items: itemsCartType;
+	email: string;
+};
+
 const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 	const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
@@ -26,20 +31,20 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		return res.status(405).end();
 	}
 
-	const body = JSON.parse(req.body) as itemsCartType;
-
+	const body = JSON.parse(req.body) as itemsWithEmail;
+	const clientEmail = body.email;
 	const { data } = await client.query<
 		GetProductsToPaymentQuery,
 		GetProductsToPaymentQueryVariables
 	>({
 		query: GetProductsToPaymentDocument,
 		variables: {
-			productsId: body.map(({ id }) => id),
+			productsId: body.items.map(({ id }) => id),
 		},
 	});
 	const securedProductsToPayment = data.products
 		.map((product) => {
-			const productWithAmount = body.find(({ id }) => id === product.id);
+			const productWithAmount = body.items.find(({ id }) => id === product.id);
 			if (productWithAmount) {
 				return {
 					price: product.price,
@@ -71,25 +76,25 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 	const session = await stripe.checkout.sessions.create({
 		mode: 'payment',
 		locale: 'pl',
-		customer_email:'a@example.com',
+		customer_email: clientEmail,
 		payment_method_types: ['blik', 'p24', 'card'],
 		success_url: 'http://localhost:3000/success.html',
 		cancel_url: 'http://localhost:3000/cancel.html',
 		line_items: productsToStripe,
 	});
 	if (session.status === 'open') {
-		const sessionTotal=(session.amount_total)?session.amount_total:0;
+		const sessionTotal = session.amount_total ? session.amount_total : 0;
 		const d = await admin.mutate<
 			CreateOrderMutationResult,
 			CreateOrderMutationVariables
 		>({
 			variables: {
-				email: 'a@example.com',
+				email: clientEmail,
 				orderItems: createOrderInputs,
-				totalOrder:sessionTotal,
-				stripeCheckoutId:session.id
+				totalOrder: sessionTotal,
+				stripeCheckoutId: session.id,
 			},
-			mutation:CreateOrderDocument
+			mutation: CreateOrderDocument,
 		});
 	}
 
