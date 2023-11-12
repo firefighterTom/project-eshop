@@ -45,7 +45,7 @@ export function Login() {
 					<span
 						className=' text-blue-500 cursor-pointer'
 						onClick={() =>
-							context.openComponent(
+							context.visibilityToggle(
 								'switchBetweenLoginAndRegistrationComponents'
 							)
 						}>

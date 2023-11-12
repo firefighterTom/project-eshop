@@ -68,7 +68,7 @@ export function Registration() {
 					<span
 						className='cursor-pointer text-blue-500'
 						onClick={() =>
-							context.closeComponent(
+							context.visibilityToggle(
 								'switchBetweenLoginAndRegistrationComponents'
 							)
 						}>

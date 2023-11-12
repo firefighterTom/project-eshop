@@ -21,13 +21,13 @@ export function PanelMenu() {
 			<div className='absolute bg-quartz-gray text-white left-0 top-0 h-screen z-40 flex w-1/3 min-w-[13rem] max-w-[15rem]  '>
 				<div className='relative flex flex-col mt-8 w-full'>
 					<Link
-						onClick={() => context.closeComponent('panelMenuComponent')}
+						onClick={() => context.visibilityToggle('panelMenuComponent')}
 						href={'/'}
 						className='pl-2 font-bold uppercase text-2xl'>
 						E-shop
 					</Link>
 					<button
-						onClick={() => context.closeComponent('panelMenuComponent')}
+						onClick={() => context.visibilityToggle('panelMenuComponent')}
 						className='absolute right-3 top-[1px]'>
 						<IconCloseMenuBar />
 					</button>
@@ -44,7 +44,7 @@ export function PanelMenu() {
 							return (
 								<Link
 									key={el.linkName}
-									onClick={() => context.closeComponent('panelMenuComponent')}
+									onClick={() => context.visibilityToggle('panelMenuComponent')}
 									href={`${el.link}`}
 									className='block py-3 hover:bg-white hover:text-quartz-gray duration-200  pl-2 border-b-[1px]  '>
 									{el.linkName}
@@ -62,7 +62,7 @@ export function PanelMenu() {
 					{!session && (
 						<Link
 							href={'/Account'}
-							onClick={() => context.closeComponent('panelMenuComponent')}
+							onClick={() => context.visibilityToggle('panelMenuComponent')}
 							className='mx-auto py-2 px-3 mt-12 bg-button-color text-xs sm:text-sm lg:text-base rounded hover:bg-button-color/[0.9] '>
 							Log In
 						</Link>

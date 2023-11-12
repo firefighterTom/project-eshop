@@ -33,7 +33,7 @@ function SearchBox({ refine }: SearchBoxProvided) {
 					/>
 					<IconClose
 						className='w-10 h-10 cursor-pointer'
-						onClick={() => context.closeComponent('searchComponent')}
+						onClick={() => context.visibilityToggle('searchComponent')}
 					/>
 				</label>
 			</form>

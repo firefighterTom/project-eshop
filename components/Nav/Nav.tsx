@@ -15,7 +15,7 @@ export function Nav() {
 			<div className='relative flex  px-5 py-5 mx-auto  max-w-screen-2xl bg-white text-black  '>
 				<button
 					className='basis-[30%]'
-					onClick={() => context.openComponent('panelMenuComponent')}>
+					onClick={() => context.visibilityToggle('panelMenuComponent')}>
 					<IconOpenMenuBar className='w-6 h-6 xs:w-[30px] xs:h-[30px] md:w-[35px] md:h-[35px]' />
 				</button>
 				<div className=' basis-[40%] text-center text-2xl sm:text-3xl font-merriweather uppercase lg:w-[19rem] '>
@@ -25,7 +25,7 @@ export function Nav() {
 					<form
 						action='#'
 						className='hidden lg:flex'
-						onClick={() => context.openComponent('searchComponent')}>
+						onClick={() => context.visibilityToggle('searchComponent')}>
 						<input
 							type='text'
 							placeholder='Search product'
@@ -37,7 +37,7 @@ export function Nav() {
 
 					<IconSearch
 						className='w-6 h-6 md:w-[30px] md:h-[30px] lg:hidden cursor-pointer '
-						onClick={() => context.openComponent('searchComponent')}
+						onClick={() => context.visibilityToggle('searchComponent')}
 					/>
 
 					<Link href={'/cart'}>
