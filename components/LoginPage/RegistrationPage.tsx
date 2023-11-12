@@ -3,8 +3,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { registrationSchema } from 'schema/schemaRegister';
 import { Input } from 'components/LoginPage/Input';
-// I'll changed the type any and props if the context idea turn out to be good
-export function Registration(props:any) {
+import { useShowingComponentContext } from 'context/showingComponent';
+
+export function Registration() {
+	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof registrationSchema>;
 	const {
 		register,
@@ -34,6 +36,12 @@ export function Registration(props:any) {
 					mutationFunction(data);
 				})}>
 				<Input
+					{...register('name')}
+					inputname={'Name'}
+					type={'text'}
+					error={errors.name?.message}
+				/>
+				<Input
 					{...register('email')}
 					inputname={'Email'}
 					type={'text'}
@@ -57,7 +65,15 @@ export function Registration(props:any) {
 				</button>
 				<p className='text-xs text-center'>
 					Already have an account?{' '}
-					<span className='cursor-pointer text-blue-500' onClick={()=>props.setIsOpen(!props.isOpen)}>Sign In</span>
+					<span
+						className='cursor-pointer text-blue-500'
+						onClick={() =>
+							context.closeComponent(
+								'switchBetweenLoginAndRegistrationComponents'
+							)
+						}>
+						Sign In
+					</span>
 				</p>
 			</form>
 		</div>
