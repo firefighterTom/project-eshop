@@ -3,7 +3,8 @@ import { PropsWithChildren, createContext, useContext, useState } from 'react';
 type componentIdType =
 	| 'searchComponent'
 	| 'panelMenuComponent'
-	| 'addedToCartNotificationComponent';
+	| 'addedToCartNotificationComponent'
+	| 'switchBetweenLoginAndRegistrationComponents';
 
 type ShowingComponentContextType = {
 	isOpen: boolean;
@@ -13,8 +14,9 @@ type ShowingComponentData = {
 	searchComponent: ShowingComponentContextType;
 	panelMenuComponent: ShowingComponentContextType;
 	addedToCartNotificationComponent: ShowingComponentContextType;
-	openComponent: (componentId: componentIdType) => void;
-	closeComponent: (componentId: componentIdType) => void;
+	switchBetweenLoginAndRegistrationComponents: ShowingComponentContextType;
+	visibilityToggle: (componentId: componentIdType) => void;
+	
 };
 const initialData = {
 	searchComponent: {
@@ -24,6 +26,9 @@ const initialData = {
 		isOpen: false,
 	},
 	addedToCartNotificationComponent: {
+		isOpen: false,
+	},
+	switchBetweenLoginAndRegistrationComponents: {
 		isOpen: false,
 	},
 };
@@ -41,20 +46,14 @@ export function ShowingComponentProvider({ children }: PropsWithChildren) {
 			: 'hidden';
 	};
 
-	const openComponent = (componentId: componentIdType) => {
+	const visibilityToggle = (componentId: componentIdType) => {
 		setData((prevData) => ({
 			...prevData,
-			[componentId]: { isOpen: true },
+			[componentId]: { isOpen: !prevData[componentId]?.isOpen },
 		}));
 		changeOverflowBody(componentId);
 	};
-	const closeComponent = (componentId: componentIdType) => {
-		setData((prevData) => ({
-			...prevData,
-			[componentId]: { ...prevData[componentId], isOpen: false },
-		}));
-		changeOverflowBody(componentId);
-	};
+	
 	const contextValue = {
 		searchComponent: {
 			isOpen: data.searchComponent.isOpen,
@@ -65,8 +64,12 @@ export function ShowingComponentProvider({ children }: PropsWithChildren) {
 		addedToCartNotificationComponent: {
 			isOpen: data.addedToCartNotificationComponent.isOpen,
 		},
-		openComponent,
-		closeComponent,
+		switchBetweenLoginAndRegistrationComponents: {
+			isOpen: data.switchBetweenLoginAndRegistrationComponents.isOpen,
+		},
+
+		visibilityToggle,
+		
 	};
 	return (
 		<ShowingComponentContext.Provider value={contextValue}>
