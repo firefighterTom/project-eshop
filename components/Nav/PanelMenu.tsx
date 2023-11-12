@@ -1,6 +1,7 @@
 import { useShowingComponentContext } from 'context/showingComponent';
 import Link from 'next/link';
 import IconCloseMenuBar from '../../assets/icon-close.svg';
+import { signOut, useSession } from 'next-auth/react';
 
 const linkNav = [
 	{ link: '/', linkName: 'My account' },
@@ -9,17 +10,20 @@ const linkNav = [
 ];
 
 export function PanelMenu() {
+	const { data: session } = useSession();
+	const firstLetterOfTheName = session?.user?.name?.charAt(0).toUpperCase();
+
 	const context = useShowingComponentContext();
 
 	return (
 		<>
-			<div className='absolute bg-slate-300 w-full h-screen left-0 top-0 z-20 bg-opacity-75 blur-xl '></div>
-			<div className='absolute bg-[#534b52] text-white left-0 top-0 h-screen z-40 flex w-1/3 min-w-[13rem] max-w-[15rem]  '>
-				<div className='relative mt-8 w-full'>
+			<div className='absolute  w-full h-screen left-0 top-0 z-20 bg-slate-300 bg-opacity-75 blur-xl '></div>
+			<div className='absolute bg-quartz-gray text-white left-0 top-0 h-screen z-40 flex w-1/3 min-w-[13rem] max-w-[15rem]  '>
+				<div className='relative flex flex-col mt-8 w-full'>
 					<Link
 						onClick={() => context.closeComponent('panelMenuComponent')}
 						href={'/'}
-						className='block font-bold uppercase text-2xl pl-2 inline-block '>
+						className='pl-2 font-bold uppercase text-2xl'>
 						E-shop
 					</Link>
 					<button
@@ -27,19 +31,42 @@ export function PanelMenu() {
 						className='absolute right-3 top-[1px]'>
 						<IconCloseMenuBar />
 					</button>
-					<div className='mt-9  '>
+					{session && (
+						<>
+							<div className='flex justify-center items-center w-10 h-10 mt-8 mx-auto rounded-full bg-white text-black '>
+								{firstLetterOfTheName}
+							</div>
+							<p className='mx-auto mt-2'>{session?.user?.name}</p>
+						</>
+					)}
+					<div className='mt-6  '>
 						{linkNav.map((el) => {
 							return (
 								<Link
 									key={el.linkName}
 									onClick={() => context.closeComponent('panelMenuComponent')}
 									href={`${el.link}`}
-									className='block py-3 hover:bg-white hover:text-[#534b52] duration-200 py-2  pl-2  border solid border-0 border-b-[1px]  '>
+									className='block py-3 hover:bg-white hover:text-quartz-gray duration-200  pl-2 border-b-[1px]  '>
 									{el.linkName}
 								</Link>
 							);
 						})}
 					</div>
+					{session && (
+						<button
+							className='mx-auto py-2 px-3 mt-12 bg-button-color text-xs sm:text-sm lg:text-base rounded hover:bg-button-color/[0.9]'
+							onClick={() => signOut()}>
+							Log Out
+						</button>
+					)}
+					{!session && (
+						<Link
+							href={'/Account'}
+							onClick={() => context.closeComponent('panelMenuComponent')}
+							className='mx-auto py-2 px-3 mt-12 bg-button-color text-xs sm:text-sm lg:text-base rounded hover:bg-button-color/[0.9] '>
+							Log In
+						</Link>
+					)}
 				</div>
 			</div>
 		</>
