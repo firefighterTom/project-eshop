@@ -37,6 +37,7 @@ query GetProducts {
 query GetAccountByEmail($email: String!) {
 	account(where: { email: $email }, stage: DRAFT) {
 		id
+		name
 		email
 		password
 	}
@@ -54,21 +55,3 @@ query GetProductsToPayment($productsId: [ID!]!) {
 	}
 }
 
-mutation CreateOrder(
-	$email: String!
-	$totalOrder: Int!
-	$stripeCheckoutId: String!
-	$orderItems: [OrderItemCreateInput!]!
-) {
-	createOrder(
-		data: {
-			email: $email
-			total: $totalOrder
-			stripeCheckoutId: $stripeCheckoutId
-			orderItems: { create: $orderItems }
-			currentStatus: NEW
-		}
-	) {
-		id
-	}
-}

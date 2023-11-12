@@ -36,6 +36,7 @@ export type Account = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
+  name: Scalars['String'];
   password: Scalars['String'];
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
@@ -114,6 +115,7 @@ export type AccountConnection = {
 export type AccountCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
+  name: Scalars['String'];
   password: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -208,6 +210,25 @@ export type AccountManyWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   password_contains?: InputMaybe<Scalars['String']>;
@@ -271,6 +292,8 @@ export enum AccountOrderByInput {
   EmailDesc = 'email_DESC',
   IdAsc = 'id_ASC',
   IdDesc = 'id_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
   PasswordAsc = 'password_ASC',
   PasswordDesc = 'password_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
@@ -281,6 +304,7 @@ export enum AccountOrderByInput {
 
 export type AccountUpdateInput = {
   email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
 };
 
@@ -302,6 +326,7 @@ export type AccountUpdateManyInlineInput = {
 };
 
 export type AccountUpdateManyInput = {
+  name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
 };
 
@@ -421,6 +446,25 @@ export type AccountWhereInput = {
   id_not_starts_with?: InputMaybe<Scalars['ID']>;
   /** All values starting with the given string. */
   id_starts_with?: InputMaybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  name_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  name_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  name_starts_with?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   password_contains?: InputMaybe<Scalars['String']>;
@@ -6245,6 +6289,7 @@ export type Product = Node & {
   publishedBy?: Maybe<User>;
   reviews: Array<Review>;
   scheduledIn: Array<ScheduledOperation>;
+  shortDescription: Scalars['String'];
   slug: Scalars['String'];
   /** System stage field */
   stage: Stage;
@@ -6966,6 +7011,7 @@ export type ProductCreateInput = {
   /** price input for default locale (en) */
   price: Scalars['Int'];
   reviews?: InputMaybe<ReviewCreateManyInlineInput>;
+  shortDescription: Scalars['String'];
   slug: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   variants?: InputMaybe<ProductVariantsCreateManyInlineInput>;
@@ -7095,6 +7141,25 @@ export type ProductManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  shortDescription_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  shortDescription_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  shortDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  shortDescription_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  shortDescription_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  shortDescription_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  shortDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  shortDescription_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  shortDescription_starts_with?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   slug_contains?: InputMaybe<Scalars['String']>;
@@ -7149,6 +7214,8 @@ export enum ProductOrderByInput {
   PriceDesc = 'price_DESC',
   PublishedAtAsc = 'publishedAt_ASC',
   PublishedAtDesc = 'publishedAt_DESC',
+  ShortDescriptionAsc = 'shortDescription_ASC',
+  ShortDescriptionDesc = 'shortDescription_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   UpdatedAtAsc = 'updatedAt_ASC',
@@ -8261,6 +8328,7 @@ export type ProductUpdateInput = {
   /** price input for default locale (en) */
   price?: InputMaybe<Scalars['Int']>;
   reviews?: InputMaybe<ReviewUpdateManyInlineInput>;
+  shortDescription?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   variants?: InputMaybe<ProductVariantsUpdateManyInlineInput>;
 };
@@ -8310,6 +8378,7 @@ export type ProductUpdateManyInput = {
   localizations?: InputMaybe<ProductUpdateManyLocalizationsInput>;
   /** price input for default locale (en) */
   price?: InputMaybe<Scalars['Int']>;
+  shortDescription?: InputMaybe<Scalars['String']>;
 };
 
 export type ProductUpdateManyLocalizationDataInput = {
@@ -8613,6 +8682,25 @@ export type ProductWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  shortDescription_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  shortDescription_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  shortDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** Any other value that exists and is not equal to the given value. */
+  shortDescription_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  shortDescription_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  shortDescription_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  shortDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  shortDescription_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  shortDescription_starts_with?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   /** All values containing the given string. */
   slug_contains?: InputMaybe<Scalars['String']>;
@@ -9689,7 +9777,6 @@ export type ReviewManyWhereInput = {
   updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
   /** All values less than or equal the given value. */
   updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
-  /** Any other value that exists and is not equal to the given value. */
   /** Any other value that exists and is not equal to the given value. */
   updatedAt_not?: InputMaybe<Scalars['DateTime']>;
   /** All values that are not contained in given list. */
@@ -11537,13 +11624,24 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type MyMutationMutationVariables = Exact<{
+export type CreateAccountMutationVariables = Exact<{
+  name: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
 
-export type MyMutationMutation = { __typename?: 'Mutation', createAccount?: { __typename?: 'Account', email: string, password: string, id: string } | null };
+export type CreateAccountMutation = { __typename?: 'Mutation', createAccount?: { __typename?: 'Account', name: string, email: string, password: string, id: string } | null };
+
+export type CreateOrderMutationVariables = Exact<{
+  email: Scalars['String'];
+  totalOrder: Scalars['Int'];
+  stripeCheckoutId: Scalars['String'];
+  orderItems: Array<OrderItemCreateInput> | OrderItemCreateInput;
+}>;
+
+
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder?: { __typename?: 'Order', id: string } | null };
 
 export type GetProductBySlugQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -11555,9 +11653,99 @@ export type GetProductBySlugQuery = { __typename?: 'Query', product?: { __typena
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string }> };
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, slug: string, description: string, images: Array<{ __typename?: 'Asset', url: string }>, reviews: Array<{ __typename?: 'Review', rating?: number | null }> }> };
+
+export type GetAccountByEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
 
 
+export type GetAccountByEmailQuery = { __typename?: 'Query', account?: { __typename?: 'Account', id: string, name: string, email: string, password: string } | null };
+
+export type GetProductsToPaymentQueryVariables = Exact<{
+  productsId: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type GetProductsToPaymentQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, images: Array<{ __typename?: 'Asset', id: string, url: string }> }> };
+
+
+export const CreateAccountDocument = gql`
+    mutation CreateAccount($name: String!, $email: String!, $password: String!) {
+  createAccount(data: {name: $name, email: $email, password: $password}) {
+    name
+    email
+    password
+    id
+  }
+}
+    `;
+export type CreateAccountMutationFn = Apollo.MutationFunction<CreateAccountMutation, CreateAccountMutationVariables>;
+
+/**
+ * __useCreateAccountMutation__
+ *
+ * To run a mutation, you first call `useCreateAccountMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAccountMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAccountMutation, { data, loading, error }] = useCreateAccountMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useCreateAccountMutation(baseOptions?: Apollo.MutationHookOptions<CreateAccountMutation, CreateAccountMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateAccountMutation, CreateAccountMutationVariables>(CreateAccountDocument, options);
+      }
+export type CreateAccountMutationHookResult = ReturnType<typeof useCreateAccountMutation>;
+export type CreateAccountMutationResult = Apollo.MutationResult<CreateAccountMutation>;
+export type CreateAccountMutationOptions = Apollo.BaseMutationOptions<CreateAccountMutation, CreateAccountMutationVariables>;
+export const CreateOrderDocument = gql`
+    mutation CreateOrder($email: String!, $totalOrder: Int!, $stripeCheckoutId: String!, $orderItems: [OrderItemCreateInput!]!) {
+  createOrder(
+    data: {email: $email, total: $totalOrder, stripeCheckoutId: $stripeCheckoutId, orderItems: {create: $orderItems}, currentStatus: NEW}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      totalOrder: // value for 'totalOrder'
+ *      stripeCheckoutId: // value for 'stripeCheckoutId'
+ *      orderItems: // value for 'orderItems'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
 export const GetProductBySlugDocument = gql`
     query GetProductBySlug($slug: String!) {
   product(where: {slug: $slug}) {
@@ -11650,6 +11838,44 @@ export function useGetProductsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetProductsQueryHookResult = ReturnType<typeof useGetProductsQuery>;
 export type GetProductsLazyQueryHookResult = ReturnType<typeof useGetProductsLazyQuery>;
 export type GetProductsQueryResult = Apollo.QueryResult<GetProductsQuery, GetProductsQueryVariables>;
+export const GetAccountByEmailDocument = gql`
+    query GetAccountByEmail($email: String!) {
+  account(where: {email: $email}, stage: DRAFT) {
+    id
+    name
+    email
+    password
+  }
+}
+    `;
+
+/**
+ * __useGetAccountByEmailQuery__
+ *
+ * To run a query within a React component, call `useGetAccountByEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountByEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetAccountByEmailQuery(baseOptions: Apollo.QueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
+      }
+export function useGetAccountByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
+        }
+export type GetAccountByEmailQueryHookResult = ReturnType<typeof useGetAccountByEmailQuery>;
+export type GetAccountByEmailLazyQueryHookResult = ReturnType<typeof useGetAccountByEmailLazyQuery>;
+export type GetAccountByEmailQueryResult = Apollo.QueryResult<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>;
 export const GetProductsToPaymentDocument = gql`
     query GetProductsToPayment($productsId: [ID!]!) {
   products(where: {id_in: $productsId}) {
@@ -11691,78 +11917,3 @@ export function useGetProductsToPaymentLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetProductsToPaymentQueryHookResult = ReturnType<typeof useGetProductsToPaymentQuery>;
 export type GetProductsToPaymentLazyQueryHookResult = ReturnType<typeof useGetProductsToPaymentLazyQuery>;
 export type GetProductsToPaymentQueryResult = Apollo.QueryResult<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>;
-export const CreateOrderDocument = gql`
-    mutation CreateOrder($email: String!, $totalOrder: Int!, $stripeCheckoutId: String!, $orderItems: [OrderItemCreateInput!]!) {
-  createOrder(
-    data: {email: $email, total: $totalOrder, stripeCheckoutId: $stripeCheckoutId, orderItems: {create: $orderItems}, currentStatus: NEW}
-  ) {
-    id
-  }
-}
-    `;
-export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
-
-/**
- * __useCreateOrderMutation__
- *
- * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
- *   variables: {
- *      email: // value for 'email'
- *      totalOrder: // value for 'totalOrder'
- *      stripeCheckoutId: // value for 'stripeCheckoutId'
- *      orderItems: // value for 'orderItems'
- *   },
- * });
- */
-export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
-      }
-export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
-export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
-export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
-export const GetAccountByEmailDocument = gql`
-    query GetAccountByEmail($email: String!) {
-  account(where: {email: $email}, stage: DRAFT) {
-    id
-    email
-    password
-  }
-}
-    `;
-
-/**
- * __useGetAccountByEmailQuery__
- *
- * To run a query within a React component, call `useGetAccountByEmailQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAccountByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAccountByEmailQuery({
- *   variables: {
- *      email: // value for 'email'
- *   },
- * });
- */
-export function useGetAccountByEmailQuery(baseOptions: Apollo.QueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
-      }
-export function useGetAccountByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>(GetAccountByEmailDocument, options);
-        }
-export type GetAccountByEmailQueryHookResult = ReturnType<typeof useGetAccountByEmailQuery>;
-export type GetAccountByEmailLazyQueryHookResult = ReturnType<typeof useGetAccountByEmailLazyQuery>;
-export type GetAccountByEmailQueryResult = Apollo.QueryResult<GetAccountByEmailQuery, GetAccountByEmailQueryVariables>;
