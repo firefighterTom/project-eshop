@@ -1,4 +1,4 @@
-import { Stars } from './Stars';
+import { Stars } from '../Stars/Stars';
 
 type ReviewsProps = {
 	name: string;
@@ -8,9 +8,9 @@ type ReviewsProps = {
 
 export function Reviews(props: ReviewsProps) {
 	return (
-		<div className=' p-2 w-[15rem] m-auto shadow-[5px_5px_5px_rgba(0,0,0,0.3)] text-center '>
+		<div className='flex flex-col items-center p-2  shadow-2xl rounded '>
 			<p className='font-bold'>{props.name}</p>
-			<p className=''>{props.content}</p>
+			<p className=' px-2 pb-2 mb-2 w-full border-b italic'>{props.content}</p>
 			<Stars rating={props.rating} />
 		</div>
 	);
