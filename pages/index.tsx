@@ -1,21 +1,23 @@
-import { Slider } from 'components/Slider';
+import { SliderProduct } from 'components/Slider/SliderProduct';
 import { useGetProductsQuery } from 'generated/graphql';
-import Link from 'next/link';
 import { Header } from 'components/Header/Header';
-import { BestProduct } from 'components/BestProduct';
+import { BestProduct } from 'components/BestSeller/BestSeller';
 export default function Home() {
 	const { data, loading, error } = useGetProductsQuery();
 	if (!data) return <h2>Problem with fetching</h2>;
+	const racketValues = {
+		name: data.products[1].name,
+		id: data.products[1].id,
+		amount: 1,
+		img: data.products[1].images[0].url,
+		price: data.products[1].price,
+	};
+
 	return (
 		<>
 			<Header />
-			{/* {data.products.map(({ slug, name, id }) => (
-				<Link key={id} href={`products/${slug}`}>
-					<h2>{name}</h2>
-				</Link>
-			))}  */}
-			<Slider products={data}/>
-			<BestProduct/>
+			<SliderProduct products={data} />
+			<BestProduct bestProduct={racketValues} />
 		</>
 	);
 }
