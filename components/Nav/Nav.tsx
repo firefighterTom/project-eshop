@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import IconShoppingCart from '../../assets/icon-shoppingCart.svg';
 import IconSearch from '../../assets/icon-search.svg';
-import { Search } from 'components/Search/Search';
 import { PanelMenu } from './PanelMenu';
 import { useShowingComponentContext } from 'context/showingComponent';
 import IconOpenMenuBar from '../../assets/icon-open.svg';
@@ -11,18 +10,18 @@ export function Nav() {
 	const context = useShowingComponentContext();
 	return (
 		<div className='w-full bg-white'>
-			<div className='relative flex justify-between px-5 py-5 bg-white text-black max-w-screen-2xl mx-auto '>
-				{context.panelMenuComponent.isOpen && <PanelMenu />}
-
-				<button onClick={() => context.openComponent('panelMenuComponent')}>
-					<IconOpenMenuBar />
+			{context.addedToCartNotificationComponent.isOpen && <Notification />}
+			{context.panelMenuComponent.isOpen && <PanelMenu />}
+			<div className='relative flex  px-5 py-5 mx-auto  max-w-screen-2xl bg-white text-black  '>
+				<button
+					className='basis-[30%]'
+					onClick={() => context.openComponent('panelMenuComponent')}>
+					<IconOpenMenuBar className='w-6 h-6 xs:w-[30px] xs:h-[30px] md:w-[35px] md:h-[35px]' />
 				</button>
-				<Link
-					href={'/'}
-					className='text-2xl sm:text-3xl font-gabarito uppercase text-right lg:w-[19rem] '>
-					E-shop
-				</Link>
-				<div className='flex items-center gap-4 sm:gap-6'>
+				<div className=' basis-[40%] text-center text-2xl sm:text-3xl font-merriweather uppercase lg:w-[19rem] '>
+					<Link href={'/'}>E-shop</Link>
+				</div>
+				<div className='flex items-center justify-end basis-[30%] gap-4 sm:gap-6'>
 					<form
 						action='#'
 						className='hidden lg:flex'
@@ -33,16 +32,16 @@ export function Nav() {
 							className='focus:outline-none'
 						/>
 
-						<IconSearch className='cursor-pointer' />
+						<IconSearch className='cursor-pointer w-6 h-6 md:w-[30px] md:h-[30px] ' />
 					</form>
 
 					<IconSearch
-						className='block lg:hidden cursor-pointer'
+						className='w-6 h-6 md:w-[30px] md:h-[30px] lg:hidden cursor-pointer '
 						onClick={() => context.openComponent('searchComponent')}
 					/>
 
 					<Link href={'/cart'}>
-						<IconShoppingCart />
+						<IconShoppingCart className='w-6 h-6 md:w-[30px] md:h-[30px]' />
 					</Link>
 				</div>
 			</div>
