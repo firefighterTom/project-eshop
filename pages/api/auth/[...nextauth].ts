@@ -40,6 +40,7 @@ export const authOptions: AuthOptions = {
 				if (isCorrectPassword) {
 					return {
 						id: data.account.id,
+						name:data.account.name,
 						email: data.account.email,
 					};
 				}
