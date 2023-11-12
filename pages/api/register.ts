@@ -1,9 +1,9 @@
 import { NextApiHandler } from 'next';
 
 import {
-	MyMutationDocument,
-	MyMutationMutation,
-	MyMutationMutationVariables,
+	CreateAccountDocument,
+	CreateAccountMutation,
+	CreateAccountMutationVariables,
 } from 'generated/graphql';
 import { admin } from 'apollo/client';
 import { loginSchema } from 'schema/schemaRegister';
@@ -18,16 +18,18 @@ const handler: NextApiHandler = async (req, res) => {
 		const requestData = loginSchema.validateSync(req.body);
 		const hashedPassword = await bcrypt.hash(requestData.password, 15);
 		const { data } = await admin.mutate<
-			MyMutationMutation,
-			MyMutationMutationVariables
+			CreateAccountMutation,
+			CreateAccountMutationVariables
 		>({
-			mutation: MyMutationDocument,
+			mutation: CreateAccountDocument,
 			variables: {
+				name: req.body.name,
 				email: req.body.email,
 				password: hashedPassword,
 			},
 		});
 		res.json({
+			name: data?.createAccount?.name,
 			email: data?.createAccount?.email,
 			id: data?.createAccount?.id,
 		});
@@ -37,17 +39,5 @@ const handler: NextApiHandler = async (req, res) => {
 		}
 		res.json({ code: 400, message: 'Problem during call api' });
 	}
-
-	// const data = await admin.mutate<
-	// 	MyMutationMutation,
-	// 	MyMutationMutationVariables
-	// >({
-	// 	mutation: MyMutationDocument,
-	// 	variables: {
-	// 		email: req.body.email,
-	// 		password: req.body.password,
-	// 	},
-	// });
-	// console.log(data)
 };
 export default handler;
