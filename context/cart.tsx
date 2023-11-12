@@ -41,7 +41,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 	}, [items]);
 
 	const addToCart = (element: addedProduct) => {
-		context.openComponent('addedToCartNotificationComponent');
+		context.visibilityToggle('addedToCartNotificationComponent');
 		const chosenProduct = addProductToCart(element, items);
 		if (chosenProduct) setItems(chosenProduct);
 	};

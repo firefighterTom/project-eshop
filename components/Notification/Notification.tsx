@@ -11,21 +11,21 @@ export function Notification() {
 				<h3 className='text-center mt-8 mb-7 font-bold'>Added To Cart</h3>
 				<button
 					onClick={() =>
-						context.closeComponent('addedToCartNotificationComponent')
+						context.visibilityToggle('addedToCartNotificationComponent')
 					}
 					className='uppercase bg-black text-white py-3 w-[80%] font-bold mb-4 text-sm'>
 					<Link href={`/cart`}>Proceed to cart</Link>
 				</button>
 				<button
 					onClick={() =>
-						context.closeComponent('addedToCartNotificationComponent')
+						context.visibilityToggle('addedToCartNotificationComponent')
 					}
 					className='uppercase bg-white text-black py-3 w-[80%] font-bold text-sm border mb-8'>
 					Continue shopping
 				</button>
 				<IconClose
 					onClick={() =>
-						context.closeComponent('addedToCartNotificationComponent')
+						context.visibilityToggle('addedToCartNotificationComponent')
 					}
 					className='absolute top-[5%] right-[5%] fill-white cursor-pointer'></IconClose>
 			</div>
