@@ -7,7 +7,7 @@ import { Footer } from '../Footer/Footer';
 export function Layout({ children }: PropsWithChildren) {
 	const context = useShowingComponentContext();
 	return (
-		<div className=' flex flex-col h-full'>
+		<div className=' flex flex-col h-full overflow-auto'>
 			{context.searchComponent.isOpen && <Search />}
 
 			<header className='sticky top-0 z-20  '>
