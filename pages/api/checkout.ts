@@ -17,6 +17,7 @@ type SecuredProduct = {
 	name: string;
 	amount: number;
 	images: string[];
+	id: string;
 };
 
 type itemsWithEmail = {
@@ -46,17 +47,20 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		.map((product) => {
 			const productWithAmount = body.items.find(({ id }) => id === product.id);
 			if (productWithAmount) {
+				const priceInCents =product.price*100;
 				return {
-					price: product.price,
+					price: priceInCents,
 					name: product.name,
 					amount: productWithAmount.amount,
 					images: product.images.map((d) => d.url),
+					id: product.id,
 				};
 			}
 		})
 		.filter((v): v is SecuredProduct => Boolean(v));
 	const productsToStripe: Stripe.Checkout.SessionCreateParams.LineItem[] =
 		securedProductsToPayment.map((product) => ({
+			
 			price_data: {
 				currency: 'PLN',
 				unit_amount: product.price,
@@ -67,10 +71,16 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 			},
 			quantity: product.amount,
 		}));
+
 	const createOrderInputs: OrderItemCreateInput[] =
 		securedProductsToPayment.map((product) => ({
 			quantity: product.amount,
 			total: product.price * product.amount,
+			product: {
+				connect: {
+					id: product.id,
+				},
+			},
 		}));
 	const stripe = new Stripe(stripeSecretKey, { apiVersion: '2022-11-15' });
 	const session = await stripe.checkout.sessions.create({
