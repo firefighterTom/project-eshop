@@ -33,7 +33,7 @@ export default function Cart() {
 	};
 	const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!session?.user?.email) router.push('/');
+		if (!session?.user?.email) router.push('/Account');
 		if (session?.user?.email) await handleSubmit(session.user.email);
 	};
 	return (
@@ -79,7 +79,7 @@ export default function Cart() {
 						currency: 'PLN',
 					}).format(totalPrice)}
 				</p>
-				<button className='py-2 px-3 mt-2 mx-auto text-white bg-[#70a9a1] rounded text-xs sm:text-sm lg:text-base hover:bg-[#70a9a1]/[0.9]'>
+				<button className='py-2 px-3 mt-2 mx-auto text-white bg-button-color rounded text-xs sm:text-sm lg:text-base hover:bg-button-color/[0.9]'>
 					Submit
 				</button>
 			</form>
