@@ -1,23 +1,22 @@
 query GetProductBySlug($slug: String!) {
-  product(where: {slug: $slug}) {
-    name
-    price
-    id
-    images {
-      id
-      url
-    }
-    description
-    shortDescription
-    reviews {
-      name
-      id
-      rating
-      content
-    }
-  }
+	product(where: { slug: $slug }) {
+		name
+		price
+		id
+		images {
+			id
+			url
+		}
+		description
+		shortDescription
+		reviews {
+			name
+			id
+			rating
+			content
+		}
+	}
 }
-
 
 query GetProducts {
 	products {
@@ -34,7 +33,6 @@ query GetProducts {
 		}
 	}
 }
-
 
 query GetAccountByEmail($email: String!) {
 	account(where: { email: $email }, stage: DRAFT) {
@@ -56,4 +54,22 @@ query GetProductsToPayment($productsId: [ID!]!) {
 		}
 	}
 }
+
+query GetClientOrders($email: String) {
+	orders(where: { email: $email }) {
+		orderItems {
+			product {
+				name
+				price
+				images {
+					url
+				}
+			}
+			quantity
+		}
+		total
+		id
+	}
+}
+
 

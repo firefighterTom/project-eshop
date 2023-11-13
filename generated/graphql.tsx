@@ -11669,6 +11669,13 @@ export type GetProductsToPaymentQueryVariables = Exact<{
 
 export type GetProductsToPaymentQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, images: Array<{ __typename?: 'Asset', id: string, url: string }> }> };
 
+export type GetClientOrdersQueryVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetClientOrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', total: number, id: string, orderItems: Array<{ __typename?: 'OrderItem', quantity: number, product?: { __typename?: 'Product', name: string, price: number, images: Array<{ __typename?: 'Asset', url: string }> } | null }> }> };
+
 
 export const CreateAccountDocument = gql`
     mutation CreateAccount($name: String!, $email: String!, $password: String!) {
@@ -11918,3 +11925,49 @@ export function useGetProductsToPaymentLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetProductsToPaymentQueryHookResult = ReturnType<typeof useGetProductsToPaymentQuery>;
 export type GetProductsToPaymentLazyQueryHookResult = ReturnType<typeof useGetProductsToPaymentLazyQuery>;
 export type GetProductsToPaymentQueryResult = Apollo.QueryResult<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>;
+export const GetClientOrdersDocument = gql`
+    query GetClientOrders($email: String) {
+  orders(where: {email: $email}) {
+    orderItems {
+      product {
+        name
+        price
+        images {
+          url
+        }
+      }
+      quantity
+    }
+    total
+    id
+  }
+}
+    `;
+
+/**
+ * __useGetClientOrdersQuery__
+ *
+ * To run a query within a React component, call `useGetClientOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetClientOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetClientOrdersQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetClientOrdersQuery(baseOptions?: Apollo.QueryHookOptions<GetClientOrdersQuery, GetClientOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetClientOrdersQuery, GetClientOrdersQueryVariables>(GetClientOrdersDocument, options);
+      }
+export function useGetClientOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetClientOrdersQuery, GetClientOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetClientOrdersQuery, GetClientOrdersQueryVariables>(GetClientOrdersDocument, options);
+        }
+export type GetClientOrdersQueryHookResult = ReturnType<typeof useGetClientOrdersQuery>;
+export type GetClientOrdersLazyQueryHookResult = ReturnType<typeof useGetClientOrdersLazyQuery>;
+export type GetClientOrdersQueryResult = Apollo.QueryResult<GetClientOrdersQuery, GetClientOrdersQueryVariables>;
