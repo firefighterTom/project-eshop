@@ -4,8 +4,8 @@ import IconCloseMenuBar from '../../assets/icon-close.svg';
 import { signOut, useSession } from 'next-auth/react';
 
 const linkNav = [
-	{ link: '/', linkName: 'My account' },
-	{ link: '/', linkName: 'Products' },
+	{ link: '/myOrders', linkName: 'My orders' },
+	{ link: '/allProducts', linkName: 'Products' },
 	{ link: '/cart', linkName: 'Cart' },
 ];
 
