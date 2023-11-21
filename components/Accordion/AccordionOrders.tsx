@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import IconPlus from '../assets/icon-plus.svg';
+import IconPlus from '../../assets/icon-plus.svg';
 import Image from 'next/image';
 
 type AccordionOrdersProps = {
