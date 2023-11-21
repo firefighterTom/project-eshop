@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { createContext } from 'react';
 
 import { addProductToCart, validationLocalStorage } from './utilsCartContext';
@@ -7,20 +7,21 @@ type itemsCartType = {
 	name: string;
 	id: string;
 	amount: number;
-	price:number;
-	img:string
+	price: number;
+	img: string;
 }[];
 type CartContextType = {
 	items: itemsCartType;
 	addToCart: (value: addedProduct) => void;
+	setItems:Dispatch<SetStateAction<itemsCartType>>
 };
 
 type addedProduct = {
 	name: string;
 	id: string;
-	amount:number
-	price:number;
-	img:string
+	amount: number;
+	price: number;
+	img: string;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -47,7 +48,7 @@ export function CartProvider({ children }: PropsWithChildren) {
 	};
 
 	return (
-		<CartContext.Provider value={{ items, addToCart }}>
+		<CartContext.Provider value={{ items,setItems, addToCart }}>
 			{children}
 		</CartContext.Provider>
 	);
