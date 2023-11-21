@@ -38,9 +38,9 @@ export function Hits({
 									currency: 'PLN',
 								}).format(product.price)}
 							</p>
-							<p>
+							<div>
 								<Stars rating={avarageReviewsScore} />
-							</p>
+							</div>
 						</article>
 					</li>
 				);
