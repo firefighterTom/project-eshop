@@ -4,7 +4,8 @@ type componentIdType =
 	| 'searchComponent'
 	| 'panelMenuComponent'
 	| 'addedToCartNotificationComponent'
-	| 'switchBetweenLoginAndRegistrationComponents';
+	| 'switchBetweenLoginAndRegistrationComponents'
+	| 'confirmToDeleteItemFromCartNotification';
 
 type ShowingComponentContextType = {
 	isOpen: boolean;
@@ -15,8 +16,8 @@ type ShowingComponentData = {
 	panelMenuComponent: ShowingComponentContextType;
 	addedToCartNotificationComponent: ShowingComponentContextType;
 	switchBetweenLoginAndRegistrationComponents: ShowingComponentContextType;
+	confirmToDeleteItemFromCartNotification: ShowingComponentContextType;
 	visibilityToggle: (componentId: componentIdType) => void;
-	
 };
 const initialData = {
 	searchComponent: {
@@ -29,6 +30,9 @@ const initialData = {
 		isOpen: false,
 	},
 	switchBetweenLoginAndRegistrationComponents: {
+		isOpen: false,
+	},
+	confirmToDeleteItemFromCartNotification: {
 		isOpen: false,
 	},
 };
@@ -49,11 +53,13 @@ export function ShowingComponentProvider({ children }: PropsWithChildren) {
 	const visibilityToggle = (componentId: componentIdType) => {
 		setData((prevData) => ({
 			...prevData,
-			[componentId]: { isOpen: !prevData[componentId]?.isOpen },
+			[componentId]: {
+				isOpen: !prevData[componentId]?.isOpen,
+			},
 		}));
 		changeOverflowBody(componentId);
 	};
-	
+
 	const contextValue = {
 		searchComponent: {
 			isOpen: data.searchComponent.isOpen,
@@ -67,9 +73,11 @@ export function ShowingComponentProvider({ children }: PropsWithChildren) {
 		switchBetweenLoginAndRegistrationComponents: {
 			isOpen: data.switchBetweenLoginAndRegistrationComponents.isOpen,
 		},
+		confirmToDeleteItemFromCartNotification: {
+			isOpen: data.confirmToDeleteItemFromCartNotification.isOpen,
+		},
 
 		visibilityToggle,
-		
 	};
 	return (
 		<ShowingComponentContext.Provider value={contextValue}>
