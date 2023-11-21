@@ -5,8 +5,10 @@ import { loginSchema } from '../../schema/schemaRegister';
 import { Input } from './Input';
 import { signIn } from 'next-auth/react';
 import { useShowingComponentContext } from 'context/showingComponent';
+import { useState } from 'react';
 
 export function Login() {
+	const [error, setError] = useState('');
 	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
@@ -16,14 +18,22 @@ export function Login() {
 	} = useForm<FormData>({
 		resolver: yupResolver(loginSchema),
 	});
-
 	return (
 		<div className='w-[20%] min-w-[15rem]  bg-white py-4 mb-3 px-4'>
-			<h2 className='text-center mb-4 font-bold uppercase'>Log in</h2>
+			<h2 className='text-center mb-1 font-bold uppercase'>Log in</h2>
+			<p className='text-xs text-center pb-2 text-red-700 '>
+				{' '}
+				{error ? error : <span>&nbsp;</span>}
+			</p>
 			<form
 				className='flex flex-col justify-center '
 				onSubmit={handleSubmit((data: FormData) => {
-					signIn('credentials', data);
+					const res = signIn('credentials', { ...data, redirect: false }).then(
+						(response) => {
+							if (response?.error) return setError('Wrong email or password');
+							setError('');
+						}
+					);
 				})}>
 				<Input
 					{...register('email')}
@@ -49,6 +59,7 @@ export function Login() {
 								'switchBetweenLoginAndRegistrationComponents'
 							)
 						}>
+						{' '}
 						Sign up
 					</span>
 				</p>
