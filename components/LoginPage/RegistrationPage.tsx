@@ -23,6 +23,8 @@ export function Registration() {
 			},
 			body: JSON.stringify(registrationData),
 		});
+		if (response.ok === true)
+			context.visibilityToggle('switchBetweenLoginAndRegistrationComponents');
 	};
 
 	return (
