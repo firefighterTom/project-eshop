@@ -47,7 +47,7 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		.map((product) => {
 			const productWithAmount = body.items.find(({ id }) => id === product.id);
 			if (productWithAmount) {
-				const priceInCents =product.price*100;
+				const priceInCents = product.price * 100;
 				return {
 					price: priceInCents,
 					name: product.name,
@@ -60,7 +60,6 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		.filter((v): v is SecuredProduct => Boolean(v));
 	const productsToStripe: Stripe.Checkout.SessionCreateParams.LineItem[] =
 		securedProductsToPayment.map((product) => ({
-			
 			price_data: {
 				currency: 'PLN',
 				unit_amount: product.price,
@@ -93,7 +92,10 @@ const stripeCheckoutHandler: NextApiHandler = async (req, res) => {
 		line_items: productsToStripe,
 	});
 	if (session.status === 'open') {
-		const sessionTotal = session.amount_total ? session.amount_total : 0;
+		const fromCentsToDollars = 0.01;
+		const sessionTotal = session.amount_total
+			? session.amount_total * fromCentsToDollars
+			: 0;
 		const d = await admin.mutate<
 			CreateOrderMutationResult,
 			CreateOrderMutationVariables
