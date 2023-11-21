@@ -55,8 +55,8 @@ query GetProductsToPayment($productsId: [ID!]!) {
 	}
 }
 
-query GetClientOrders($email: String) {
-	orders(where: { email: $email }) {
+query GetClientOrders($email: String!) {
+	orders(where: { email: $email }, stage: DRAFT) {
 		orderItems {
 			product {
 				name
@@ -71,5 +71,3 @@ query GetClientOrders($email: String) {
 		id
 	}
 }
-
-

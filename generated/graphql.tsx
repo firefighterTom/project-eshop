@@ -23,7 +23,7 @@ export type Scalars = {
   RichTextAST: any;
 };
 
-export type Account = Node & {
+export type Account = Entity & Node & {
   __typename?: 'Account';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -547,7 +547,7 @@ export type Aggregate = {
 };
 
 /** Asset system model */
-export type Asset = Node & {
+export type Asset = Entity & Node & {
   __typename?: 'Asset';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -1233,7 +1233,7 @@ export type BatchPayload = {
 };
 
 /** Category of products, e.g. Menswear. */
-export type Category = Node & {
+export type Category = Entity & Node & {
   __typename?: 'Category';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -1824,7 +1824,7 @@ export type CategoryWhereUniqueInput = {
 };
 
 /** Collection of products, e.g. Winter Sale. */
-export type Collection = Node & {
+export type Collection = Entity & Node & {
   __typename?: 'Collection';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -2439,7 +2439,7 @@ export type ConnectPositionInput = {
   start?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type Currency = Node & {
+export type Currency = Entity & Node & {
   __typename?: 'Currency';
   code: Scalars['String'];
   /** The time the document was created */
@@ -2989,7 +2989,7 @@ export type Entity = {
   stage: Stage;
 };
 
-/** This enumeration holds all typenames that implement the Entity interface. Components implement the Entity interface. At the moment models are not supported, models are listed in this enum to avoid an empty enum without any components. */
+/** This enumeration holds all typenames that implement the Entity interface. Components and models implement the Entity interface. */
 export enum EntityTypeName {
   Account = 'Account',
   /** Asset system model */
@@ -3014,7 +3014,7 @@ export enum EntityTypeName {
   User = 'User'
 }
 
-/** Allows to specify input to query components directly */
+/** Allows to specify input to query models and components directly */
 export type EntityWhereInput = {
   /** The ID of an object */
   id: Scalars['ID'];
@@ -5204,7 +5204,7 @@ export type Node = {
   stage: Stage;
 };
 
-export type Order = Node & {
+export type Order = Entity & Node & {
   __typename?: 'Order';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -5341,7 +5341,7 @@ export type OrderEdge = {
   node: Order;
 };
 
-export type OrderItem = Node & {
+export type OrderItem = Entity & Node & {
   __typename?: 'OrderItem';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -6260,7 +6260,7 @@ export type PageInfo = {
   startCursor?: Maybe<Scalars['String']>;
 };
 
-export type Product = Node & {
+export type Product = Entity & Node & {
   __typename?: 'Product';
   categories: Array<Category>;
   collections: Array<Collection>;
@@ -6447,7 +6447,7 @@ export enum ProductColor {
   Purple = 'PURPLE'
 }
 
-export type ProductColorVariant = Node & {
+export type ProductColorVariant = Entity & Node & {
   __typename?: 'ProductColorVariant';
   color: ProductColor;
   /** The time the document was created */
@@ -7230,7 +7230,7 @@ export enum ProductSize {
   Xs = 'XS'
 }
 
-export type ProductSizeColorVariant = Node & {
+export type ProductSizeColorVariant = Entity & Node & {
   __typename?: 'ProductSizeColorVariant';
   color: ProductColor;
   /** The time the document was created */
@@ -7782,7 +7782,7 @@ export type ProductSizeColorVariantWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']>;
 };
 
-export type ProductSizeVariant = Node & {
+export type ProductSizeVariant = Entity & Node & {
   __typename?: 'ProductSizeVariant';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -9475,7 +9475,7 @@ export type RgbaInput = {
   r: Scalars['RGBAHue'];
 };
 
-export type Review = Node & {
+export type Review = Entity & Node & {
   __typename?: 'Review';
   content: Scalars['String'];
   /** The time the document was created */
@@ -10098,7 +10098,7 @@ export type RichText = {
 };
 
 /** Scheduled Operation system model */
-export type ScheduledOperation = Node & {
+export type ScheduledOperation = Entity & Node & {
   __typename?: 'ScheduledOperation';
   affectedDocuments: Array<ScheduledOperationAffectedDocument>;
   /** The time the document was created */
@@ -10533,7 +10533,7 @@ export type ScheduledOperationWhereUniqueInput = {
 };
 
 /** Scheduled Release system model */
-export type ScheduledRelease = Node & {
+export type ScheduledRelease = Entity & Node & {
   __typename?: 'ScheduledRelease';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -11134,7 +11134,7 @@ export type UnpublishLocaleInput = {
 };
 
 /** User system model */
-export type User = Node & {
+export type User = Entity & Node & {
   __typename?: 'User';
   /** The time the document was created */
   createdAt: Scalars['DateTime'];
@@ -11670,7 +11670,7 @@ export type GetProductsToPaymentQueryVariables = Exact<{
 export type GetProductsToPaymentQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, name: string, price: number, images: Array<{ __typename?: 'Asset', id: string, url: string }> }> };
 
 export type GetClientOrdersQueryVariables = Exact<{
-  email?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
 }>;
 
 
@@ -11926,8 +11926,8 @@ export type GetProductsToPaymentQueryHookResult = ReturnType<typeof useGetProduc
 export type GetProductsToPaymentLazyQueryHookResult = ReturnType<typeof useGetProductsToPaymentLazyQuery>;
 export type GetProductsToPaymentQueryResult = Apollo.QueryResult<GetProductsToPaymentQuery, GetProductsToPaymentQueryVariables>;
 export const GetClientOrdersDocument = gql`
-    query GetClientOrders($email: String) {
-  orders(where: {email: $email}) {
+    query GetClientOrders($email: String!) {
+  orders(where: {email: $email}, stage: DRAFT) {
     orderItems {
       product {
         name
@@ -11960,7 +11960,7 @@ export const GetClientOrdersDocument = gql`
  *   },
  * });
  */
-export function useGetClientOrdersQuery(baseOptions?: Apollo.QueryHookOptions<GetClientOrdersQuery, GetClientOrdersQueryVariables>) {
+export function useGetClientOrdersQuery(baseOptions: Apollo.QueryHookOptions<GetClientOrdersQuery, GetClientOrdersQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetClientOrdersQuery, GetClientOrdersQueryVariables>(GetClientOrdersDocument, options);
       }
