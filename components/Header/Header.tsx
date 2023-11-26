@@ -22,7 +22,7 @@ export function Header() {
 				</div>
 				<div className='absolute w-full h-full z-10 bg-black opacity-[.60] '></div>
 			</div>
-			<SliderHeader></SliderHeader>
+			<SliderHeader/>
 		</div>
 	);
 }
