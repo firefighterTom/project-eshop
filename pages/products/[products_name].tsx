@@ -44,7 +44,7 @@ export default function ProductPage() {
 						<Stars rating={avarageReviewsScore} />
 					</div>
 					<p className='px-4 col-span-full text-center xs:px-6 sm:px-0  sm:row-start-4 sm:col-start-2 sm:text-left sm:max-w-[30rem]'>
-						{data.product.description}
+						{data.product.shortDescription}
 					</p>
 					<div className='flex flex-col items-center justify-center col-span-full mt-4 mb-4 gap-3 xs:flex-row sm:col-start-2 sm:justify-start sm:items-stretch '>
 						<div className='flex'>
