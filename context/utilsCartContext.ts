@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { schemaProductCart, SchemaProductCart } from './schemaProductCart';
+import { schemaProductCart, SchemaProductCart } from '../schema/schemaProductCart';
 
 type addedProduct = {
 	name: string;
