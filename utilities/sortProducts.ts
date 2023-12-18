@@ -1,7 +1,8 @@
 import { productType } from 'components/MoreProducts/MoreProducts';
 
+
 const sortFromZToA = (data: productType) => {
-	return data.toSorted((a, b) => {
+	const result =[...data].sort((a, b) => {
 		const fa = a.node.name.toLowerCase();
 		const fb = b.node.name.toLowerCase();
 		if (fa > fb) {
@@ -12,9 +13,10 @@ const sortFromZToA = (data: productType) => {
 		}
 		return 0;
 	});
+	return result
 };
 const sortFromAToZ = (data: productType) => {
-	return data.toSorted((a, b) => {
+	return [...data].sort((a, b) => {
 		const fa = a.node.name.toLowerCase();
 		const fb = b.node.name.toLowerCase();
 		if (fa < fb) {
@@ -27,12 +29,12 @@ const sortFromAToZ = (data: productType) => {
 	});
 };
 const sortFromHigherPrice = (data: productType) => {
-	return data.toSorted((a, b) => {
+	return [...data].sort((a, b) => {
 		return b.node.price - a.node.price;
 	});
 };
 const sortFromLowerPrice = (data: productType) => {
-	return data.toSorted((a, b) => {
+	return [...data].sort((a, b) => {
 		return a.node.price - b.node.price;
 	});
 };
