@@ -17,9 +17,8 @@ export function Hits({
 	images: { url: string }[];
 	reviews: { rating: number }[];
 }>) {
-	if (!searchState?.query) return <></>;
 	const context = useShowingComponentContext();
-
+	if (!searchState?.query) return <></>;
 	return (
 		<ul>
 			{allSearchResults.hits.map((product) => {
