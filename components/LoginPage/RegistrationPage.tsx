@@ -8,7 +8,6 @@ import Link from 'next/link';
 import router from 'next/router';
 
 export function Registration() {
-	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof registrationSchema>;
 	const {
 		register,

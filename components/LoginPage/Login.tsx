@@ -10,7 +10,6 @@ import Link from 'next/link';
 
 export function Login() {
 	const [error, setError] = useState('');
-	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
 		register,
