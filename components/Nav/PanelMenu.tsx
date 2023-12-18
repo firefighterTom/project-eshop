@@ -61,7 +61,7 @@ export function PanelMenu() {
 					)}
 					{!session && (
 						<Link
-							href={'/Account'}
+							href={'/login'}
 							onClick={() => context.visibilityToggle('panelMenuComponent')}
 							className='mx-auto py-2 px-3 mt-12 bg-button-color text-xs sm:text-sm lg:text-base rounded hover:bg-button-color/[0.9] '>
 							Log In
