@@ -7,7 +7,8 @@ import { SelectAndDisplay } from 'components/SelectAndDisplay/SelectAndDisplay';
 import { Photos } from 'components/Product/components/ProductImages';
 import { useState } from 'react';
 import { Stars } from 'components/Stars/Stars';
-import { averageReviewScore } from 'utilities/avarageReviewScore';
+import { averageReviewScore } from 'utilities/averageReviewScore';
+import { NextSeo } from 'next-seo';
 
 export default function ProductPage() {
 	const { addToCart } = useCartContext();
@@ -21,13 +22,18 @@ export default function ProductPage() {
 		variables: { slug: productName ?? '' },
 	});
 	if (!data?.product) return <h2>Problem with fetching</h2>;
-	const avarageReviewsScore = data.product.reviews.length
+	const averageReviewsScore = data.product.reviews.length
 		? averageReviewScore(data.product.reviews)
 		: 0;
 
-		
 	return (
 		<div className='flex flex-col items-center mt-5'>
+			<NextSeo
+				title={data.product.name}
+				openGraph={{
+					url: `http://localhost:3000/${data.product.slug}`,
+				}}
+			/>
 			<div className='max-w-[1000px] '>
 				<div className=' grid grid-cols-3 w-full sm:grid-cols-2  '>
 					<Photos name={data.product.name} images={data.product.images} />
@@ -41,7 +47,7 @@ export default function ProductPage() {
 						}).format(data.product.price)}
 					</p>
 					<div className=' col-span-full justify-self-center sm:row-start-3 sm:col-start-2 sm:justify-self-start  '>
-						<Stars rating={avarageReviewsScore} />
+						<Stars rating={averageReviewsScore} />
 					</div>
 					<p className='px-4 col-span-full text-center xs:px-6 sm:px-0  sm:row-start-4 sm:col-start-2 sm:text-left sm:max-w-[30rem]'>
 						{data.product.shortDescription}

@@ -1,6 +1,7 @@
 import AccountWrapper from 'components/AccountWrapper/AccountWrapper';
 import { Registration } from 'components/LoginPage/RegistrationPage';
 import { useSession } from 'next-auth/react';
+import { NextSeo } from 'next-seo';
 import router from 'next/router';
 
 export default function LoginPage() {
@@ -12,5 +13,16 @@ export default function LoginPage() {
 	if (session) {
 		router.replace('/');
 	}
-	if (!session) return <AccountWrapper><Registration/></AccountWrapper>
+	if (!session)
+		return (
+			<AccountWrapper>
+				<NextSeo
+					title='Registration'
+					openGraph={{
+						url: 'http://localhost:3000/register',
+					}}
+				/>
+				<Registration />
+			</AccountWrapper>
+		);
 }

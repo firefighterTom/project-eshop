@@ -1,7 +1,8 @@
 import { MoreProducts } from 'components/MoreProducts/MoreProducts';
 import { useGetFirstProductsQuery } from 'generated/graphql';
 import { ChangeEvent, useState } from 'react';
-
+import { NextSeo } from 'next-seo';
+import { title } from 'process';
 
 export default function AllProducts() {
 	const productSize = 6;
@@ -18,6 +19,12 @@ export default function AllProducts() {
 
 	return (
 		<section>
+			<NextSeo
+				title='All Products'
+				openGraph={{
+					url: 'http://localhost:3000/allProudcts',
+				}}
+			/>
 			<h2 className='text-center py-16 text-2xl bg-white-smoke border-y font-merriweather md:py-20 md:text-3xl'>
 				All Products
 			</h2>
