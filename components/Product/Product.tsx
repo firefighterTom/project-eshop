@@ -1,4 +1,4 @@
-import { averageReviewScore } from 'utilities/avarageReviewScore';
+import { averageReviewScore } from 'utilities/averageReviewScore';
 import { Stars } from '../Stars/Stars';
 import Image from 'next/image';
 import { useState } from 'react';

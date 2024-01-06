@@ -2,7 +2,7 @@ import { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 import Image from 'next/image';
 import { Stars } from 'components/Stars/Stars';
-import { averageReviewScore } from 'utilities/avarageReviewScore';
+import { averageReviewScore } from 'utilities/averageReviewScore';
 import Link from 'next/link';
 import { useShowingComponentContext } from 'context/showingComponent';
 
@@ -11,7 +11,7 @@ export function Hits({
 	searchState,
 }: StateResultsProvided<{
 	name: string;
-	slug:string;
+	slug: string;
 	description: string;
 	price: number;
 	images: { url: string }[];
@@ -26,7 +26,9 @@ export function Hits({
 					product.reviews.length >= 0 ? averageReviewScore(product.reviews) : 0;
 				return (
 					<li key={product.objectID} className='py-3 border-b'>
-						<Link href={`/products/${product.slug}`} onClick={() => context.visibilityToggle('searchComponent')}>
+						<Link
+							href={`/products/${product.slug}`}
+							onClick={() => context.visibilityToggle('searchComponent')}>
 							<article className='grid grid-rows-2 grid-cols-[1fr_2fr_1fr] text-sm'>
 								<Image
 									width={30}
