@@ -83,6 +83,9 @@ export default function Cart() {
 										<ChangeQuantityOfProduct
 											amount={product.amount}
 											name={product.name}
+											price={product.price}
+											id={product.id}
+											img={product.img}
 										/>
 									</div>
 								</div>
