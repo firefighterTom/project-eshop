@@ -4,9 +4,10 @@ import * as yup from 'yup';
 import { registrationSchema } from 'schema/schemaRegister';
 import { Input } from 'components/LoginPage/Input';
 import { useShowingComponentContext } from 'context/showingComponent';
+import Link from 'next/link';
+import router from 'next/router';
 
 export function Registration() {
-	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof registrationSchema>;
 	const {
 		register,
@@ -23,8 +24,7 @@ export function Registration() {
 			},
 			body: JSON.stringify(registrationData),
 		});
-		if (response.ok === true)
-			context.visibilityToggle('switchBetweenLoginAndRegistrationComponents');
+		if (response.ok === true) router.replace('/login');
 	};
 
 	return (
@@ -67,15 +67,9 @@ export function Registration() {
 				</button>
 				<p className='text-xs text-center'>
 					Already have an account?{' '}
-					<span
-						className='cursor-pointer text-blue-500'
-						onClick={() =>
-							context.visibilityToggle(
-								'switchBetweenLoginAndRegistrationComponents'
-							)
-						}>
-						Sign In
-					</span>
+					<Link href={'/login'} className=' text-blue-500 cursor-pointer'>
+						Sign in
+					</Link>
 				</p>
 			</form>
 		</div>

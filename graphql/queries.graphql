@@ -1,6 +1,7 @@
 query GetProductBySlug($slug: String!) {
 	product(where: { slug: $slug }) {
 		name
+		slug
 		price
 		id
 		images {
@@ -71,3 +72,55 @@ query GetClientOrders($email: String!) {
 		id
 	}
 }
+
+query GetFirstProducts($size:Int) {
+  productsConnection(first:$size) {
+    edges{
+      cursor
+      node{
+        id
+		name
+		price
+		slug
+		images {
+			url
+		}
+		description
+		reviews {
+			rating
+		}
+      }
+    }
+    pageInfo{
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+
+query GetMoreProducts($cursor:String!,$size:Int!) {
+  productsConnection(after:$cursor,first:$size) {
+    edges{
+      cursor
+      node{
+        id
+		name
+		price
+		slug
+		images {
+			url
+		}
+		description
+		reviews {
+			rating
+		}
+      }
+    }
+    pageInfo{
+      endCursor
+      hasNextPage
+    }
+  }
+}
+

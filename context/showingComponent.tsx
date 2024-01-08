@@ -2,9 +2,7 @@ import { PropsWithChildren, createContext, useContext, useState } from 'react';
 
 type componentIdType =
 	| 'searchComponent'
-	| 'panelMenuComponent'
 	| 'addedToCartNotificationComponent'
-	| 'switchBetweenLoginAndRegistrationComponents'
 	| 'confirmToDeleteItemFromCartNotification';
 
 type ShowingComponentContextType = {
@@ -13,9 +11,7 @@ type ShowingComponentContextType = {
 
 type ShowingComponentData = {
 	searchComponent: ShowingComponentContextType;
-	panelMenuComponent: ShowingComponentContextType;
 	addedToCartNotificationComponent: ShowingComponentContextType;
-	switchBetweenLoginAndRegistrationComponents: ShowingComponentContextType;
 	confirmToDeleteItemFromCartNotification: ShowingComponentContextType;
 	visibilityToggle: (componentId: componentIdType) => void;
 };
@@ -23,15 +19,10 @@ const initialData = {
 	searchComponent: {
 		isOpen: false,
 	},
-	panelMenuComponent: {
-		isOpen: false,
-	},
 	addedToCartNotificationComponent: {
 		isOpen: false,
 	},
-	switchBetweenLoginAndRegistrationComponents: {
-		isOpen: false,
-	},
+
 	confirmToDeleteItemFromCartNotification: {
 		isOpen: false,
 	},
@@ -64,15 +55,10 @@ export function ShowingComponentProvider({ children }: PropsWithChildren) {
 		searchComponent: {
 			isOpen: data.searchComponent.isOpen,
 		},
-		panelMenuComponent: {
-			isOpen: data.panelMenuComponent.isOpen,
-		},
 		addedToCartNotificationComponent: {
 			isOpen: data.addedToCartNotificationComponent.isOpen,
 		},
-		switchBetweenLoginAndRegistrationComponents: {
-			isOpen: data.switchBetweenLoginAndRegistrationComponents.isOpen,
-		},
+
 		confirmToDeleteItemFromCartNotification: {
 			isOpen: data.confirmToDeleteItemFromCartNotification.isOpen,
 		},

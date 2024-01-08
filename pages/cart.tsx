@@ -7,6 +7,7 @@ import { countTotalPrice } from 'utilities/countTotalPrice';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ChangeQuantityOfProduct } from 'components/ChangeQuantityOfProduct';
+import { NextSeo } from 'next-seo';
 
 const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_API_KEY}`);
 
@@ -43,6 +44,12 @@ export default function Cart() {
 	};
 	return (
 		<div className='flex flex-col items-center mb-5'>
+			<NextSeo
+				title='Cart'
+				openGraph={{
+					url: 'http://localhost:3000/cart',
+				}}
+			/>
 			<h2 className=' w-full mb-4 py-12 md:py-16 text-2xl md:text-3xl text-center font-merriweather bg-[#f5f5f5] border-y'>
 				Your Cart
 			</h2>
@@ -76,6 +83,9 @@ export default function Cart() {
 										<ChangeQuantityOfProduct
 											amount={product.amount}
 											name={product.name}
+											price={product.price}
+											id={product.id}
+											img={product.img}
 										/>
 									</div>
 								</div>

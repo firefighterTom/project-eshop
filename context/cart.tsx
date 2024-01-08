@@ -2,8 +2,7 @@ import { Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, use
 import { createContext } from 'react';
 
 import { addProductToCart, validationLocalStorage } from './utilsCartContext';
-import { useShowingComponentContext } from './showingComponent';
-type itemsCartType = {
+type ItemsCartType = {
 	name: string;
 	id: string;
 	amount: number;
@@ -11,12 +10,12 @@ type itemsCartType = {
 	img: string;
 }[];
 type CartContextType = {
-	items: itemsCartType;
-	addToCart: (value: addedProduct) => void;
-	setItems:Dispatch<SetStateAction<itemsCartType>>
+	items: ItemsCartType;
+	addToCart: (value: AddedProduct) => void;
+	setItems:Dispatch<SetStateAction<ItemsCartType>>
 };
 
-type addedProduct = {
+type AddedProduct = {
 	name: string;
 	id: string;
 	amount: number;
@@ -26,9 +25,8 @@ type addedProduct = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: PropsWithChildren) {
-	const context = useShowingComponentContext();
 
-	const [items, setItems] = useState<itemsCartType>([]);
+	const [items, setItems] = useState<ItemsCartType>([]);
 	useEffect(() => {
 		try {
 			validationLocalStorage(setItems);
@@ -41,8 +39,8 @@ export function CartProvider({ children }: PropsWithChildren) {
 			window.localStorage.setItem('cart', JSON.stringify(items));
 	}, [items]);
 
-	const addToCart = (element: addedProduct) => {
-		context.visibilityToggle('addedToCartNotificationComponent');
+	const addToCart = (element: AddedProduct) => {
+		
 		const chosenProduct = addProductToCart(element, items);
 		if (chosenProduct) setItems(chosenProduct);
 	};

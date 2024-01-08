@@ -6,10 +6,10 @@ import { Input } from './Input';
 import { signIn } from 'next-auth/react';
 import { useShowingComponentContext } from 'context/showingComponent';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export function Login() {
 	const [error, setError] = useState('');
-	const context = useShowingComponentContext();
 	type FormData = yup.InferType<typeof loginSchema>;
 	const {
 		register,
@@ -52,16 +52,9 @@ export function Login() {
 				</button>
 				<p className='text-xs text-center'>
 					{`Don't have an account?`}
-					<span
-						className=' text-blue-500 cursor-pointer'
-						onClick={() =>
-							context.visibilityToggle(
-								'switchBetweenLoginAndRegistrationComponents'
-							)
-						}>
-						{' '}
+					<Link href={'/register'} className=' text-blue-500 cursor-pointer'>
 						Sign up
-					</span>
+					</Link>
 				</p>
 			</form>
 		</div>

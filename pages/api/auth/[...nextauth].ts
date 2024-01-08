@@ -9,7 +9,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 export const authOptions: AuthOptions = {
 	pages: {
-		signIn: '/Account',
+		signIn: '/login',
 	},
 	providers: [
 		CredentialsProvider({

@@ -7,7 +7,8 @@ import { Layout } from 'components/Layout/Layout';
 import { ShowingComponentProvider } from 'context/showingComponent';
 import { CartProvider } from 'context/cart';
 import { ConfirmToDeleteItemProvider } from 'context/confirmToDeleteItem';
-
+import { DefaultSeo } from 'next-seo';
+import SEO from '../next-seo.config';
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
@@ -16,13 +17,14 @@ export default function App({
 		<SessionProvider session={session}>
 			<ApolloProvider client={client}>
 				<ConfirmToDeleteItemProvider>
-				<ShowingComponentProvider>
-					<CartProvider>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
-					</CartProvider>
-				</ShowingComponentProvider>
+					<ShowingComponentProvider>
+						<CartProvider>
+							<DefaultSeo {...SEO} />
+							<Layout>
+								<Component {...pageProps} />
+							</Layout>
+						</CartProvider>
+					</ShowingComponentProvider>
 				</ConfirmToDeleteItemProvider>
 			</ApolloProvider>
 		</SessionProvider>
