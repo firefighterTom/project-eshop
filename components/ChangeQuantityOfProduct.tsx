@@ -8,40 +8,44 @@ import { useConfirmToDeleteItemContext } from 'context/confirmToDeleteItem';
 type ChangeQuantityOfProductProps = {
 	name: string;
 	amount: number;
+	id: string;
+	price: number;
+	img: string;
 };
 
 export function ChangeQuantityOfProduct(props: ChangeQuantityOfProductProps) {
-	const [amountOfProduct, setAmountOfProduct] = useState(props.amount);
 	const [isClickedToDelete, setIsClickedToDelete] = useState(false);
-	const { setItems } = useCartContext();
+	const { addToCart, setItems } = useCartContext();
 	const context = useShowingComponentContext();
 	const contextDeleteItem = useConfirmToDeleteItemContext();
 
-	useEffect(() => {
-		const currentProductAndAmount = {
-			name: props.name,
-			amount: amountOfProduct,
-		};
+	const subtractOne = () => {
 		setItems((state) => {
 			return state.map((productItem) => {
-				if (productItem.name === currentProductAndAmount.name) {
-					return { ...productItem, amount: currentProductAndAmount.amount };
+				if (productItem.name === props.name) {
+					return { ...productItem, amount: props.amount - 1 };
 				}
 				return productItem;
 			});
 		});
-		setItems((state) => {
-			return state.filter((productItem) => {
-				return productItem.amount > 0;
-			});
-		});
-	}, [amountOfProduct]);
-
+	};
+	const reduceAmountOfProduct = () => {
+		if (props.amount > 1) subtractOne();
+		if (props.amount === 1) {
+			setIsClickedToDelete(true);
+			context.visibilityToggle('confirmToDeleteItemFromCartNotification');
+		}
+	};
 	useEffect(() => {
 		if (isClickedToDelete && contextDeleteItem.isConfirmed) {
-			setAmountOfProduct(amountOfProduct - 1);
 			setIsClickedToDelete(false);
 			contextDeleteItem.setData(false);
+			subtractOne();
+			setItems((state) => {
+				return state.filter((productItem) => {
+					return productItem.amount > 0;
+				});
+			});
 		}
 	}, [contextDeleteItem.isConfirmed, isClickedToDelete]);
 
@@ -49,22 +53,16 @@ export function ChangeQuantityOfProduct(props: ChangeQuantityOfProductProps) {
 		<div className='flex'>
 			<span
 				className='flex items-center p-2 border cursor-pointer'
-				onClick={() => {
-					if (amountOfProduct > 1) setAmountOfProduct(amountOfProduct - 1);
-					if (amountOfProduct === 1) {
-						setIsClickedToDelete(true);
-						context.visibilityToggle('confirmToDeleteItemFromCartNotification');
-					}
-				}}>
+				onClick={() => reduceAmountOfProduct()}>
 				<IconMinus />
 			</span>
 			<p className=' flex justify-center items-center w-10 text-center border-y  '>
-				{amountOfProduct}
+				{props.amount}
 			</p>
 			<span className='flex items-center p-2 border cursor-pointer'>
 				<IconPlus
 					onClick={() => {
-						setAmountOfProduct(amountOfProduct + 1);
+						addToCart({ ...props, amount: 1 });
 					}}
 				/>
 			</span>
